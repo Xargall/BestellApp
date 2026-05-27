@@ -71,7 +71,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 0 0 0;
+  padding: 100px 0 50px 0;
   gap: 20px;
 }
 
@@ -86,4 +86,29 @@
   display: flex;
   align-items: center;
   gap: 30px;
+}
+
+.menu_head {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    background-color: var(--primary-color);
+    height: 60px;
+    padding: 50px 200px 0;
+}
+
+.menu_head img {
+width: 88px;
+height: 91px;
+position: absolute;
+align-self: flex-end;
+}
+
+.menu_head p {
+    transform: translate(100px, -25px);
+    font-family: "Palanquin";
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: white;
 }
