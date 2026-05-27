@@ -26,6 +26,8 @@ const burgers = [
   },
 ];
 
+const burgerImgs = ["001", "002", "003", "004"];
+
 const pizzas = [
   {
     "name": "Pizza Margherita",
@@ -53,6 +55,8 @@ const pizzas = [
     "quantity": 0,
   },
 ];
+
+const pizzaImgs = ["001", "002", "003", "004"];
 
 const salads = [
   {
@@ -83,3 +87,7 @@ const salads = [
     "quantity": 0,
   },
 ];
+
+const saladImgs = ["001", "002", "003", "004"];
+
+const bakset = [];

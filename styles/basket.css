@@ -1,0 +1,14 @@
+.basket_frame {
+    width: 435px;
+    flex-grow: 1;
+}
+
+.basket_style {
+    width: 435px;
+    height: 800px;
+    position:sticky;
+    top: 0;
+    background: var(--tertiary-color);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}

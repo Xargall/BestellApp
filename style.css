@@ -76,10 +76,10 @@
 }
 
 .headline p {
-    font-family: "Palanquin";
-    font-weight: 700;
-    line-height: 120%;
-    font-size: 1.5rem
+  font-family: "Palanquin";
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 1.5rem;
 }
 
 .text {
@@ -88,27 +88,46 @@
   gap: 30px;
 }
 
+.content_wrapper {
+  display: flex;
+}
+
+.menu_section {
+  height: 100vh;
+  width: calc(100% - 435px);
+}
+
 .menu_head {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    position: relative;
-    background-color: var(--primary-color);
-    height: 60px;
-    padding: 50px 200px 0;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  background-color: var(--primary-color);
+  height: 60px;
+  padding: 50px 200px 0;
 }
 
 .menu_head img {
-width: 88px;
-height: 91px;
-position: absolute;
-align-self: flex-end;
+  width: 88px;
+  height: 91px;
+  position: absolute;
+  align-self: flex-end;
 }
 
 .menu_head p {
-    transform: translate(100px, -25px);
-    font-family: "Palanquin";
-    font-weight: 700;
-    font-size: 2.5rem;
-    color: white;
+  transform: translate(100px, -25px);
+  font-family: "Palanquin";
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: white;
+}
+
+.meals {
+  display: flex;
+  width: calc(100% - 435px);
+  height: 140px;
+  padding: 20px 120px;
+  margin: 20px 120px 50px;
+  background: var(--secondary-color);
+  border-radius: 12px;
 }
