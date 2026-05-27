@@ -92,16 +92,14 @@ function getBasketTemplate() {
         <div class="basket_style">
             <h3>Your Basket</h3>
             <div id="basket_content"></div>
-            <div id="empty_basket"></div>
-            <div></div>
-            <button></button>
+            <div id="empty_basket" class="err"></div>            
         </div>
     `;
 }
 
 function getErrorTemplate(){
     return /*html*/`
-        <p></p>
-        <img src="../assets/icons/" alt="">
+        <p>Nothing here yet. <br> Go ahead and choose something delicious!</p>
+        <img src="../assets/icons/shopping_cart.png" alt="">
     `
 }

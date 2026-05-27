@@ -6,9 +6,37 @@
 .basket_style {
     width: 435px;
     height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position:sticky;
     top: 0;
     background: var(--tertiary-color);
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+}
+
+.basket_style h3 {
+    font-family:"Palanquin";
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--secondary-color);
+    padding: 60px 125px;
+}
+
+.err {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.err p {
+    text-align: center;
+    font-family: "Palanquin";
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 120%;
+    color: var(--secondary-color);
+    padding-bottom: 70px;
 }
