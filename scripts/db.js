@@ -3,30 +3,30 @@ const burgers = [
     "name": "Veggie mushroom black burger",
     "price": 16.9,
     "description": "Mixed green salad, Tomatoes, Edamame, Mushrooms",
-    "quantity": 0,
+    "quantity": 1,
   },
   {
     "name": "All meat burger",
     "price": 15.9,
     "description":
       "Beef, Bacon, Dill pickles, Smoked cheese, Ketchup, BBQ sauce",
-    "quantity": 0,
+    "quantity": 1,
   },
   {
     "name": "Beef red burger",
     "price": 14.9,
     "description": "Beef, Cheese, Tomatoes, Lettuce, Onion",
-    "quantity": 0,
+    "quantity": 1,
   },
   {
     "name": "Big chicken burger",
     "price": 15.9,
     "description": "Chicken, Cheese, Tomatoes, Lettuce, Onion, Bell Pepper",
-    "quantity": 0,
+    "quantity": 1,
   },
 ];
 
-const burgerImgs = ["001", "002", "003", "004"];
+const burgerImgs = ["001.jpg", "002.jpg", "003.jpg", "004.jpg"];
 
 const pizzas = [
   {
@@ -56,7 +56,7 @@ const pizzas = [
   },
 ];
 
-const pizzaImgs = ["001", "002", "003", "004"];
+const pizzaImgs = ["001.jpg", "002.jpg", "003.jpg", "004.jpg"];
 
 const salads = [
   {
@@ -88,6 +88,6 @@ const salads = [
   },
 ];
 
-const saladImgs = ["001", "002", "003", "004"];
+const saladImgs = ["001.jpg", "002.jpg", "003.jpg", "004.jpg"];
 
-const bakset = [];
+const basket = [];

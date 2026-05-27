@@ -34,9 +34,25 @@ function renderSaladCard() {
   }
 }
 
-function renderBasket() {
-  const basketRef = document.getElementById("basket");
-  basketRef.innerHTML = getBasketTemplate();
+function renderBasket(){
+    let basketRef = document.getElementById('basket');
+    basketRef.innerHTML = getBasketTemplate(); 
+}
+
+
+function renderBasketContent() {
+  const basketContentRef = document.getElementById('basket_content');
+  const basketErrRef = document.getElementById('empty_basket'); 
+  if(basket.length === 0){
+basketErrRef.innerHTML = getErrorTemplate();
+  }else {
+    for (let i = 0; i < basket.length; i++) {
+        basketContentRef.innerHTML = basketContentCard();
+    }
+  }
+    
+  
+  
 }
 
 function formattedBurgerPrice(i) {
@@ -70,4 +86,14 @@ function formattedSaladPrice(i) {
   });
 
   priceRef.innerHTML = formattedPrice;
+}
+
+function addBurgerToCart(i){
+const burger_meal = basket.find((product) => product.name === burgers[i].name);
+if (burger_meal) {
+    burger_meal.quantity++
+} else {
+    basket.push({"name": burgers[i].name, "price": burgers[i].price, "quantity": burgers[i].quantity})
+    console.log(basket);
+}
 }

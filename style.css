@@ -124,10 +124,19 @@
 
 .meals {
   display: flex;
-  width: calc(100% - 435px);
+  align-items: center;
+  justify-content: space-between;
+  width: 700px;
   height: 140px;
-  padding: 20px 120px;
+  padding: 10px;
   margin: 20px 120px 50px;
   background: var(--secondary-color);
   border-radius: 12px;
+}
+
+.meals img {
+  width: 200px;
+  height: 120px;
+  border-radius: 12px;
+  object-fit: cover;
 }

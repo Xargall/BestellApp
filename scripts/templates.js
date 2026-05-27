@@ -45,7 +45,7 @@ function renderBurgerTemplate(i) {
                 <article>
                     <p>${burgers[i].description}</p>
                 </article>
-                <button></button>
+                <button onclick="addBurgerToCart(${i})"></button>
             </div>
         </div>
     `;
@@ -54,7 +54,7 @@ function renderBurgerTemplate(i) {
 function renderPizzaTemplate(i) {
   return /*html*/ `
         <section class="meals">
-            <img src="" alt="">
+            <img src="../assets/imgs/pizza/${pizzaImgs[i]}" alt="">
             <div>
                 <article>
                     <p>${pizzas[i].name}</p>
@@ -72,7 +72,7 @@ function renderPizzaTemplate(i) {
 function renderSaladTemplate(i) {
   return /*html*/ `
         <section class="meals">
-            <img src="" alt="">
+            <img src="../assets/imgs/salad/${saladImgs[i]}" alt="">
             <div>
                 <article>
                     <p>${salads[i].name}</p>
@@ -91,11 +91,17 @@ function getBasketTemplate() {
   return /*html*/ `
         <div class="basket_style">
             <h3>Your Basket</h3>
-            <div></div>
+            <div id="basket_content"></div>
+            <div id="empty_basket"></div>
             <div></div>
             <button></button>
         </div>
     `;
 }
 
-
+function getErrorTemplate(){
+    return /*html*/`
+        <p></p>
+        <img src="../assets/icons/" alt="">
+    `
+}
