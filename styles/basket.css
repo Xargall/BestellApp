@@ -154,6 +154,10 @@
   cursor: pointer;
 }
 
+.raise_btn img {
+  object-fit: contain;
+}
+
 .quantity {
   display: flex;
   align-items: center;

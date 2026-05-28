@@ -53,10 +53,16 @@ function renderBasketContent() {
     for (let i = 0; i < basket.length; i++) {
       basketContentRef.innerHTML += basketContentCard(i);
       basketCheckoutRef.innerHTML = getCheckoutTemplate(i);
-      formattedCardPrice(i);
-      formattedSubTotal(i);
+      renderCardContent(i);
     }
   }
+}
+
+function renderCardContent(i) {
+  formattedCardPrice(i);
+  formattedSubTotal(i);
+  quantityRender(i);
+  quantityNameRender(i);
 }
 
 function formattedCardPrice(i) {
@@ -87,7 +93,13 @@ function formattedSubTotal(i) {
     style: "currency",
     currency: "EUR",
   });
-  totalPriceRef.innerHTML += formattedTotal;
+  totalPriceRef.innerHTML = formattedTotal;
+}
+
+function quantityNameRender(i) {
+  const nameRef = document.getElementById(`quantity${i}`);
+  nameRef.innerHTML = "";
+  nameRef.innerHTML = quantityNameTemplate(i);
 }
 
 function formattedBurgerPrice(i) {
@@ -153,7 +165,6 @@ function addPizzaToCart(i) {
       "quantity": pizzas[i].quantity,
     });
     renderBasketContent();
-    console.log(basket);
   }
 }
 
@@ -173,20 +184,40 @@ function addSaladToCart(i) {
   }
 }
 
+function quantityRender(i) {
+  const quantRef = document.getElementById(`quantity_count${i}`);
+  quantRef.innerHTML = "";
+  quantRef.innerHTML = renderQuantityCount(i);
+  if (basket[i].quantity > 1) {
+    document.getElementById(`img2${i}`).src = "./assets/icons/+.png";
+    document.getElementById(`img${i}`).src = "./assets/icons/-.png";
+  } else {
+    document.getElementById(`img2${i}`).src = "./assets/icons/+.png";
+    document.getElementById(`img${i}`).src = "./assets/icons/delete.png";
+  }
+}
+
 function raiseQuantity(i) {
   const item = basket.find((product) => product.name === basket[i].name);
   if (item) {
     item.quantity++;
-    renderBasketContent();
+    quantityRender(i);
+    formattedCardPrice(i);
+    formattedSubTotal(i);
+    quantityNameRender(i);
   }
 }
 
 function lowerQuantity(i) {
   const item = basket.find((product) => product.name === basket[i].name);
-  document.getElementById(`img${i}`).src = "./assets/icons/delete.png";
+
   if (item.quantity > 1) {
     item.quantity--;
-    document.getElementById(`img${i}`).src = "./assets/icons/-.png";
+    quantityRender(i);
+    formattedCardPrice(i);
+    formattedSubTotal(i);
+    quantityNameRender(i);
+
     renderBasketContent();
   } else if ((item.quantity = 1)) {
     basket.splice(i, 1);
