@@ -172,3 +172,25 @@ function addSaladToCart(i) {
     console.log(basket);
   }
 }
+
+function raiseQuantity(i) {
+  const item = basket.find((product) => product.name === basket[i].name);
+  if (item) {
+    item.quantity++;
+    renderBasketContent();
+  }
+}
+
+function lowerQuantity(i) {
+  const item = basket.find((product) => product.name === basket[i].name);
+  document.getElementById(`img${i}`).src = "./assets/icons/delete.png";
+  if (item.quantity > 1) {
+    item.quantity--;
+    document.getElementById(`img${i}`).src = "./assets/icons/-.png";
+    renderBasketContent();
+  } else if ((item.quantity = 1)) {
+    basket.splice(i, 1);
+
+    renderBasketContent();
+  }
+}

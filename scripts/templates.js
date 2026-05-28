@@ -120,9 +120,9 @@ function getErrorTemplate() {
 function basketContentCard(i) {
   return /*html*/ `
     <div class="meal_card">
-        <p>${basket[i].quantity} x ${basket[i].name}</p>
+        <p id="quantity${i}">${basket[i].quantity} x ${basket[i].name}</p>
         <div class="price_section">
-            <p><button><img src="" alt=""></button>${basket[i].quantity}<button><img src="" alt=""></button></p>
+            <div class="quantity"><button onclick="lowerQuantity(${i})" class="raise_btn"><img src="../assets/icons/delete.png"" alt="" id="img${i}"></button><p>${basket[i].quantity}</p><button onclick="raiseQuantity(${i})" class="raise_btn"><img src="../assets/icons/+.png" alt=""></button></div>
             <p id="price${i}"></p>
         </div>
     </div>

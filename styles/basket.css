@@ -51,7 +51,7 @@
   flex-direction: column;
 }
 
-.meal_card p {
+.meal_card > p {
   padding: 20px 0 0 20px;
   font-family: "Palanquin";
   font-weight: 700;
@@ -65,7 +65,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px 20px 20px;
+  padding: 20px;
+}
+
+.price_section p {
+  font-family: "Palanquin";
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 120%;
 }
 
 .content_style {
@@ -137,6 +144,22 @@
 }
 
 .subtotal_price {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+}
+
+.raise_btn {
+  background-color: var(--secondary-color);
+  border: none;
+  cursor: pointer;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  width: 55px;
+}
+
+.quantity img {
+    padding-top: 5px;
 }
