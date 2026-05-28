@@ -43,13 +43,51 @@ function renderBasket() {
 function renderBasketContent() {
   const basketContentRef = document.getElementById("basket_content");
   const basketErrRef = document.getElementById("empty_basket");
+  const basketCheckoutRef = document.getElementById("checkout");
+  basketContentRef.innerHTML = "";
+  basketErrRef.innerHTML = "";
+  basketCheckoutRef.innerHTML = "";
   if (basket.length === 0) {
     basketErrRef.innerHTML = getErrorTemplate();
   } else {
     for (let i = 0; i < basket.length; i++) {
-      basketContentRef.innerHTML = basketContentCard();
+      basketContentRef.innerHTML += basketContentCard(i);
+      basketCheckoutRef.innerHTML = getCheckoutTemplate(i);
+      formattedCardPrice(i);
+      formattedSubTotal(i);
     }
   }
+}
+
+function formattedCardPrice(i) {
+  const priceRef = document.getElementById(`price${i}`);
+  priceRef.innerHTML = "";
+  const cardPrice = basket[i].price * basket[i].quantity;
+  const formattedPrice = cardPrice.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+  priceRef.innerHTML += formattedPrice;
+}
+
+function formattedSubTotal(i) {
+  let subTotalRef = document.getElementById("subtotal");
+  let totalPriceRef = document.getElementById("total");
+  let total = 0;
+  let subTotal = 0;
+  for (i = 0; i < basket.length; i++)
+    subTotal += basket[i].price * basket[i].quantity;
+  let formattedSubTotal = subTotal.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+  subTotalRef.innerHTML = formattedSubTotal;
+  total += subTotal + 4.99;
+  let formattedTotal = total.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+  totalPriceRef.innerHTML += formattedTotal;
 }
 
 function formattedBurgerPrice(i) {
@@ -91,12 +129,46 @@ function addBurgerToCart(i) {
   );
   if (burger_meal) {
     burger_meal.quantity++;
+    renderBasketContent();
   } else {
     basket.push({
       "name": burgers[i].name,
       "price": burgers[i].price,
       "quantity": burgers[i].quantity,
     });
+    renderBasketContent();
+    console.log(basket);
+  }
+}
+
+function addPizzaToCart(i) {
+  const pizza_meal = basket.find((product) => product.name === pizzas[i].name);
+  if (pizza_meal) {
+    pizza_meal.quantity++;
+    renderBasketContent();
+  } else {
+    basket.push({
+      "name": pizzas[i].name,
+      "price": pizzas[i].price,
+      "quantity": pizzas[i].quantity,
+    });
+    renderBasketContent();
+    console.log(basket);
+  }
+}
+
+function addSaladToCart(i) {
+  const salad_meal = basket.find((product) => product.name === salads[i].name);
+  if (salad_meal) {
+    salad_meal.quantity++;
+    renderBasketContent();
+  } else {
+    basket.push({
+      "name": salads[i].name,
+      "price": salads[i].price,
+      "quantity": salads[i].quantity,
+    });
+    renderBasketContent();
     console.log(basket);
   }
 }
