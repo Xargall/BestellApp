@@ -232,18 +232,16 @@ function sendConfirmation() {
   const contentRef = document.getElementById("conf_content");
   confRef.showModal();
   contentRef.innerHTML = getConfirmationTemplate();
-  basketRef.classList.add("d_none");
-  setTimeout(confRef.close(), 3000);
+  basketRef.classList.add("d_none");  
 }
 
 function closeConfirmation() {
   const dialRef = document.getElementById("confirmation");
   const basketRef = document.getElementById("basket");
-  dialRef.close();
-  dialRef.classList.remove("opened");
   basketRef.classList.remove("d_none");
   basket.splice(length);
   renderBasketContent();
+  setTimeout(dialRef.close(), 5000)
 }
 
 function bubbleProtection(event) {

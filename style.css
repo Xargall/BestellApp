@@ -125,6 +125,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   width: 100%;
   height: 140px;
   padding: 10px;
@@ -141,7 +142,7 @@
 }
 
 .card_section {
-  padding: 20px 120px;
+  padding: 20px 20px 20px 120px;
 }
 
 .meal_name {
@@ -174,6 +175,7 @@
 .side_info {
   height: 100%;
   display: flex;
+  align-items: flex-end;
   flex-direction: column;
   justify-content: space-between;
   padding: 10px;
