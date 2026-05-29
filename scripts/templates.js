@@ -44,7 +44,7 @@ function renderBurgerTemplate(i) {
                 </article>
                 <article class="side_info">
                     <p id="burger_price${i}"></p>
-                    <button onclick="addBurgerToCart(${i})"></button>
+                    <button onclick="addBurgerToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
                 </article>
                 
             </div>
@@ -63,7 +63,7 @@ function renderPizzaTemplate(i) {
                 </article>
                 <article class="side_info">
                     <p id="pizza_price${i}"></p>
-                    <button onclick="addPizzaToCart(${i})"></button>
+                    <button onclick="addBurgerToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
                 </article>
                 
             </div>
@@ -82,7 +82,7 @@ function renderSaladTemplate(i) {
                 </article>
                 <article class="side_info">
                     <p id="salad_price${i}"></p>
-                    <button onclick="addSaladToCart(${i})"></button>
+                    <button onclick="addBurgerToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
                 </article>
                 
             </div>
@@ -106,7 +106,7 @@ function getCheckoutTemplate(i) {
         <div class="subtotal_price"><p>Subtotal price</p><p id="subtotal"></p></div>
         <div class="subtotal_price line-decoration"><p>Delivery Fee</p><p>4,99€</p></div>
         <div class="subtotal_price"><h6>Total</h6><h6 id="total"></h6></div>
-        <button>Buy now (Total Price)</button>
+        <div id="checkout_btn"></div>
     `;
 }
 
@@ -129,6 +129,12 @@ function basketContentCard(i) {
     `;
 }
 
+function checkoutButtonTemplate(formattedTotal) {
+  return /*html*/ `
+        <button onclick="sendConfirmation()">Buy now (${formattedTotal})</button>
+    `;
+}
+
 function renderQuantityCount(i) {
   return /*html*/ `
         <button onclick="lowerQuantity(${i})" class="raise_btn"><img src="" alt="" id="img${i}"></button><p>${basket[i].quantity}</p><button onclick="raiseQuantity(${i})" class="raise_btn" ><img src="" alt="" id="img2${i}"></button>
@@ -138,5 +144,19 @@ function renderQuantityCount(i) {
 function quantityNameTemplate(i) {
   return /*html*/ `
         ${basket[i].quantity} x ${basket[i].name}
+    `;
+}
+
+function getConfirmationTemplate() {
+  return /*html*/ `
+        <div onclick="bubbleProtection(event)" class="conf_style">
+            <div class="close"><button onclick="closeConfirmation()" class="close_btn"><img src="../assets/icons/close (1).png" alt=""></button></div>
+            <div class="close_text">
+                <img src="../assets/icons/ChatGPT Image Nov 24, 2025, 11_51_33 AM 1.png" alt="">
+                <h6>Order Confirmed!</h6>
+                <p>Your food is on the Way!</p>
+            </div>
+
+        </div>
     `;
 }

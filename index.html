@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BestellApp</title>
-    <link rel="shortcut icon" href="./assets/icons/Logo.png" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="./assets/icons/Logo.png"
+      type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="./styles/basket.css" />
     <link rel="stylesheet" href="./styles/fonts.css" />
@@ -35,13 +38,14 @@
       </div>
     </section>
     <div class="content_wrapper">
-      <section class="menu_section" id="main_content">
-        
-      </section>
+      <section class="menu_section" id="main_content"></section>
       <!--  width: 100% - 300px = 2 Sections side by Side, bigger section sizable, takes rest if space from other sections width-->
       <section class="basket_frame" id="basket"></section>
       <!-- width: 300px , div inside width 100%, height flexible (as we need it), position sticky, top: 0-->
     </div>
+    <dialog id="confirmation" onclick="closeConfirmation()">
+      <div id="conf_content"></div>
+    </dialog>
     <footer></footer>
   </body>
 </html>

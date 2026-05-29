@@ -79,6 +79,7 @@ function formattedCardPrice(i) {
 function formattedSubTotal(i) {
   let subTotalRef = document.getElementById("subtotal");
   let totalPriceRef = document.getElementById("total");
+  let checkoutTotal = document.getElementById("checkout_btn");
   let total = 0;
   let subTotal = 0;
   for (i = 0; i < basket.length; i++)
@@ -94,6 +95,7 @@ function formattedSubTotal(i) {
     currency: "EUR",
   });
   totalPriceRef.innerHTML = formattedTotal;
+  checkoutTotal.innerHTML = checkoutButtonTemplate(formattedTotal);
 }
 
 function quantityNameRender(i) {
@@ -139,9 +141,11 @@ function addBurgerToCart(i) {
   const burger_meal = basket.find(
     (product) => product.name === burgers[i].name,
   );
+  let addToBasketRef = document.getElementById(`add_btn${i}`);
   if (burger_meal) {
     burger_meal.quantity++;
     renderBasketContent();
+    changeButton(i);
   } else {
     basket.push({
       "name": burgers[i].name,
@@ -149,7 +153,7 @@ function addBurgerToCart(i) {
       "quantity": burgers[i].quantity,
     });
     renderBasketContent();
-    console.log(basket);
+    changeButton(i);
   }
 }
 
@@ -201,10 +205,8 @@ function raiseQuantity(i) {
   const item = basket.find((product) => product.name === basket[i].name);
   if (item) {
     item.quantity++;
-    quantityRender(i);
-    formattedCardPrice(i);
-    formattedSubTotal(i);
-    quantityNameRender(i);
+    renderCardContent(i)
+    changeButton(i);
   }
 }
 
@@ -213,15 +215,44 @@ function lowerQuantity(i) {
 
   if (item.quantity > 1) {
     item.quantity--;
-    quantityRender(i);
-    formattedCardPrice(i);
-    formattedSubTotal(i);
-    quantityNameRender(i);
+    renderCardContent(i)
+    changeButton(i);
 
     renderBasketContent();
   } else if ((item.quantity = 1)) {
     basket.splice(i, 1);
 
     renderBasketContent();
+  }
+}
+
+function sendConfirmation() {
+  const confRef = document.getElementById("confirmation");
+  const basketRef = document.getElementById("basket");
+  const contentRef = document.getElementById("conf_content");
+  confRef.showModal();
+  contentRef.innerHTML = getConfirmationTemplate();
+  basketRef.classList.add("d_none");
+  setTimeout(confRef.close(), 3000);
+}
+
+function closeConfirmation() {
+  const dialRef = document.getElementById("confirmation");
+  const basketRef = document.getElementById("basket");
+  dialRef.close();
+  dialRef.classList.remove("opened");
+  basketRef.classList.remove("d_none");
+  basket.splice(length);
+  renderBasketContent();
+}
+
+function bubbleProtection(event) {
+  event.stopPropagation();
+}
+
+function changeButton(i) {
+  let elem = document.getElementById(`add_btn${i}`);
+  if (basket[i].quantity >= 1) {
+    elem.innerHTML = `Added ${basket[i].quantity}`;
   }
 }

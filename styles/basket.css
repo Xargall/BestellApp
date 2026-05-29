@@ -141,7 +141,20 @@
   height: 64px;
   border-radius: 60px;
   padding: 13px 55px;
+  background-color: var(--primary-color);
+  font-family: "Palanquin";
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 120%;
+  color: white;
+  border: none;
 }
+
+.checkout_style button:hover {
+  scale: 1.05;
+}
+
+
 
 .subtotal_price {
   display: flex;
@@ -165,5 +178,50 @@
 }
 
 .quantity img {
-    padding-top: 5px;
+  padding-top: 5px;
+}
+
+.conf_style {
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+
+.close {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 15px 0 0;
+  width: 100%;
+}
+
+.close_btn{
+background: var(--tertiary-color);
+border: none;
+
+}
+
+.close_text{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: 16px;
+}
+
+.close_text h6 {
+  font-family: "Palanquin";
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 120%;
+  color: white;
+}
+
+.close_text p {
+  font-family: "Palanquin";
+  font-weight: 700;
+  font-size: 1.5rem;
+line-height: 120%;
+color: white;
 }
