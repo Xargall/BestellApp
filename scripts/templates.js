@@ -6,7 +6,7 @@ function getMainTemplate() {
               src="./assets/icons/Chanese 1.png"
               alt="burger"
               class="menu_icon" />
-            <p class="menu_text">Burger & Sandwiches</p>
+            <p class="menu_text">Burger</p>
           </div>
           <div id="burger" class="card_section"></div>
         </div>
@@ -120,7 +120,10 @@ function getErrorTemplate() {
 function basketContentCard(i) {
   return /*html*/ `
     <div class="meal_card">
-        <p id="quantity${i}"></p>
+        <div class="meal_card_head">
+            <p id="quantity${i}"></p>
+            <button onclick="deleteItem(${i})" class="raise_btn" id="delete${i}"><img src="../assets/icons/delete.png" alt=""></button>
+        </div>
         <div class="price_section">
             <div class="quantity" id="quantity_count${i}"></div>
             <p id="price${i}"></p>

@@ -9,7 +9,11 @@
 .topnav > img {
   width: 93px;
   height: 38px;
-  display: block;
+}
+
+.img_menu {
+  width: 45px !important;
+  height: 35px !important;
 }
 
 .landing_section {
@@ -33,6 +37,34 @@
   width: 200px;
   height: 200px;
   transform: translateY(80px);
+}
+
+.footer_content {
+  width: 100%;
+  height: 128px;
+  background: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.footer_content p {
+  font-family: "Palanquin";
+  font-weight: 500;
+  color: white;
+  font-size: 1rem;
+}
+
+.copyright {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.copyright img {
+  width: 20px;
+  height: 20px;
 }
 
 .headline {
@@ -68,9 +100,10 @@
 .menu_head {
   display: flex;
   align-items: center;
-gap: 30px;
+  gap: 30px;
   background-color: var(--primary-color);
   height: 60px;
+  margin-top: 50px;
 }
 
 .menu_head img {
@@ -95,7 +128,7 @@ gap: 30px;
   width: 700px;
   height: 140px;
   padding: 10px;
-  margin: 20px 120px 50px;
+  margin: 10px 0 10px 30px;
   background: var(--secondary-color);
   border-radius: 12px;
 }
@@ -209,4 +242,46 @@ dialog::backdrop {
   /* https://smoothshadows.com/#djEsMSwxLDAuMiwyLDIsMSwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
   box-shadow: 1px 2px 2px rgba(3, 7, 18, 0.2);
   transition: all 250ms ease-in-out;
+}
+
+.menubar {
+  width: 100%;
+  height: 80px;
+  background: var(--tertiary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+}
+
+.navbar {
+  width: 100%;
+  height: 80px;
+  background: var(--tertiary-color);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  bottom: 0;
+  padding: 27px;
+}
+
+.navbar img {
+  width: 24px;
+  height: 24px;
+}
+
+.navbar button {
+  border: none;
+  background-color: var(--tertiary-color);
+  cursor: pointer;
+}
+
+.responsive_basket {
+  width: 100%;
+  height: 700px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  background: var(--tertiary-color);
 }

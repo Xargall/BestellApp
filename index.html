@@ -21,7 +21,7 @@
     <header>
       <div class="topnav">
         <img src="./assets/icons/Logo 02.png" alt="" class="active" />
-        <img src="./assets/icons/dehaze.png" alt="" />
+        <img src="./assets/icons/dehaze.png" alt="" class="img_menu" />
       </div>
     </header>
     <section class="landing_section">
@@ -39,7 +39,7 @@
     <div class="content_wrapper">
       <section class="menu_section" id="main_content"></section>
       <!--  width: 100% - 300px = 2 Sections side by Side, bigger section sizable, takes rest if space from other sections width-->
-      <section class="basket_frame" id="basket"></section>
+      <section class="basket_frame" id="main_basket"></section>
       <!-- width: 300px , div inside width 100%, height flexible (as we need it), position sticky, top: 0-->
     </div>
     <dialog
@@ -48,6 +48,27 @@
       onload="closeConfirmation()">
       <div id="conf_content"></div>
     </dialog>
-    <footer></footer>
+    <footer class="footer_content">
+      <div class="copyright">
+        <img src="./assets/icons/copyright.png" alt="" />
+        <p>2025 BurgerHouse</p>
+      </div>
+      <p>Imprint</p>
+      <p>Cookie Preferences</p>
+    </footer>
+
+    <div class="menubar">
+      <div id="respo_basket" class="responsive_basket">templates</div>
+      <div class="navbar">
+        <button><img src="./assets/icons/home.png" alt="" /></button>
+        <button><img src="./assets/icons/person.png" alt="" /></button>
+        <button>
+          <img src="./assets/icons/takeout_dining_2.png" alt="" />
+        </button>
+        <button onclick="renderResponsiveBasket()">
+          <img src="./assets/icons/shopping_cart (1).png" alt="" />
+        </button>
+      </div>
+    </div>
   </body>
 </html>

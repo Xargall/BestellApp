@@ -6,6 +6,7 @@
 .basket_style {
   width: 435px;
   height: 800px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,8 +52,19 @@
   flex-direction: column;
 }
 
-.meal_card > p {
-  padding: 20px 0 0 20px;
+.meal_card_head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px 0;
+}
+
+.meal_card_head > img {
+  width: 16px;
+  height: 18px;
+}
+
+.meal_card_head > p {
   font-family: "Palanquin";
   font-weight: 700;
   font-size: 1.2rem;
@@ -154,8 +166,6 @@
   scale: 1.05;
 }
 
-
-
 .subtotal_price {
   display: flex;
   justify-content: space-between;
@@ -182,10 +192,9 @@
 }
 
 .conf_style {
-display: flex;
-flex-direction: column;
-align-items: center;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .close {
@@ -195,13 +204,12 @@ align-items: center;
   width: 100%;
 }
 
-.close_btn{
-background: var(--tertiary-color);
-border: none;
-
+.close_btn {
+  background: var(--tertiary-color);
+  border: none;
 }
 
-.close_text{
+.close_text {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -222,6 +230,10 @@ border: none;
   font-family: "Palanquin";
   font-weight: 700;
   font-size: 1.5rem;
-line-height: 120%;
-color: white;
+  line-height: 120%;
+  color: white;
+}
+
+.d_none {
+  display: none;
 }

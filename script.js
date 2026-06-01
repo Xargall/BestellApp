@@ -1,5 +1,6 @@
 function init() {
   renderContent();
+  renderBasket();
 }
 
 function renderContent() {
@@ -7,7 +8,6 @@ function renderContent() {
   renderBurgerCard();
   renderPizzaCard();
   renderSaladCard();
-  renderBasket();
 }
 
 function renderBurgerCard() {
@@ -35,7 +35,7 @@ function renderSaladCard() {
 }
 
 function renderBasket() {
-  let basketRef = document.getElementById("basket");
+  let basketRef = document.getElementById("main_basket");
   basketRef.innerHTML = getBasketTemplate();
   renderBasketContent();
 }
@@ -145,7 +145,6 @@ function addBurgerToCart(i) {
   if (burger_meal) {
     burger_meal.quantity++;
     renderBasketContent();
-    changeButton(i);
   } else {
     basket.push({
       "name": burgers[i].name,
@@ -153,7 +152,6 @@ function addBurgerToCart(i) {
       "quantity": burgers[i].quantity,
     });
     renderBasketContent();
-    changeButton(i);
   }
 }
 
@@ -170,7 +168,6 @@ function addPizzaToCart(i) {
       "quantity": pizzas[i].quantity,
     });
     renderBasketContent();
-    changeButton(i);
   }
 }
 
@@ -193,23 +190,27 @@ function addSaladToCart(i) {
 
 function quantityRender(i) {
   const quantRef = document.getElementById(`quantity_count${i}`);
+  const deleteRef = document.getElementById(`delete${i}`);
   quantRef.innerHTML = "";
   quantRef.innerHTML = renderQuantityCount(i);
   if (basket[i].quantity > 1) {
     document.getElementById(`img2${i}`).src = "./assets/icons/+.png";
     document.getElementById(`img${i}`).src = "./assets/icons/-.png";
+    deleteRef.classList.remove("d_none");
   } else {
     document.getElementById(`img2${i}`).src = "./assets/icons/+.png";
     document.getElementById(`img${i}`).src = "./assets/icons/delete.png";
+    deleteRef.classList.add("d_none");
   }
 }
 
 function raiseQuantity(i) {
   const item = basket.find((product) => product.name === basket[i].name);
+  const deleteRef = document.getElementById("delete");
   if (item) {
     item.quantity++;
     renderCardContent(i);
-    changeButton(i);
+    
   }
 }
 
@@ -219,7 +220,6 @@ function lowerQuantity(i) {
   if (item.quantity > 1) {
     item.quantity--;
     renderCardContent(i);
-    changeButton(i);
 
     renderBasketContent();
   } else if ((item.quantity = 1)) {
@@ -229,33 +229,64 @@ function lowerQuantity(i) {
   }
 }
 
+function deleteItem(i) {
+  const item = basket.find((product) => product.name === basket[i].name);
+  basket.splice(i, 1);
+  renderBasketContent();
+}
+
 function sendConfirmation() {
   const confRef = document.getElementById("confirmation");
-  const basketRef = document.getElementById("basket");
+  const basketRef = document.getElementById("main_basket");
   const contentRef = document.getElementById("conf_content");
   confRef.showModal();
   contentRef.innerHTML = getConfirmationTemplate();
   basketRef.classList.add("d_none");
+  setTimeout(`closeConfirmation()`, 3000);
 }
 
 function closeConfirmation() {
   const dialRef = document.getElementById("confirmation");
-  const basketRef = document.getElementById("basket");
+  const basketRef = document.getElementById("main_basket");
   basketRef.classList.remove("d_none");
   basket.splice(length);
   renderBasketContent();
-  setTimeout(dialRef.close(), 5000);
+
+  dialRef.close();
 }
 
 function bubbleProtection(event) {
   event.stopPropagation();
 }
 
-function changeButton(i) {
-  const item = basket.find((product) => product.name === burgers[i].name);
-  let elem = document.getElementById(`add_btn${i}`);
-  if (item) {
-    elem.innerHTML = `Added ${basket[i].quantity}`;
-  } 
+// function changeButton(i) {
+//   const item = basket.find((product) => product.name === burgers[i].name);
+//   let elem = document.getElementById(`add_btn${i}`);
+//   let burger = basket[i].quantity;
+//   getIndexFromBasket(burger)
+//   if (item) {
+//     elem.innerHTML = `Added ${burger}`;
+//   }
+// }
+
+function getIndexFromBasket(burger) {
+  return basket.indexOf(burger);
 }
 
+function renderResponsiveBasket() {
+  const respoBasketRef = document.getElementById("respo_basket");
+  const basketErrRef = document.getElementById("empty_basket");
+  const basketCheckoutRef = document.getElementById("checkout");
+  basketContentRef.innerHTML = "";
+  basketErrRef.innerHTML = "";
+  basketCheckoutRef.innerHTML = "";
+  if (basket.length === 0) {
+    basketErrRef.innerHTML = getErrorTemplate();
+  } else {
+    for (let i = 0; i < basket.length; i++) {
+      basketContentRef.innerHTML += basketContentCard(i);
+      basketCheckoutRef.innerHTML = getCheckoutTemplate(i);
+      renderCardContent(i);
+    }
+  }
+}
