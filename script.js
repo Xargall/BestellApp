@@ -162,6 +162,7 @@ function addPizzaToCart(i) {
   if (pizza_meal) {
     pizza_meal.quantity++;
     renderBasketContent();
+    changeButton(i);
   } else {
     basket.push({
       "name": pizzas[i].name,
@@ -169,6 +170,7 @@ function addPizzaToCart(i) {
       "quantity": pizzas[i].quantity,
     });
     renderBasketContent();
+    changeButton(i);
   }
 }
 
@@ -177,6 +179,7 @@ function addSaladToCart(i) {
   if (salad_meal) {
     salad_meal.quantity++;
     renderBasketContent();
+    changeButton(i);
   } else {
     basket.push({
       "name": salads[i].name,
@@ -184,7 +187,7 @@ function addSaladToCart(i) {
       "quantity": salads[i].quantity,
     });
     renderBasketContent();
-    console.log(basket);
+    changeButton(i);
   }
 }
 
@@ -205,7 +208,7 @@ function raiseQuantity(i) {
   const item = basket.find((product) => product.name === basket[i].name);
   if (item) {
     item.quantity++;
-    renderCardContent(i)
+    renderCardContent(i);
     changeButton(i);
   }
 }
@@ -215,7 +218,7 @@ function lowerQuantity(i) {
 
   if (item.quantity > 1) {
     item.quantity--;
-    renderCardContent(i)
+    renderCardContent(i);
     changeButton(i);
 
     renderBasketContent();
@@ -232,7 +235,7 @@ function sendConfirmation() {
   const contentRef = document.getElementById("conf_content");
   confRef.showModal();
   contentRef.innerHTML = getConfirmationTemplate();
-  basketRef.classList.add("d_none");  
+  basketRef.classList.add("d_none");
 }
 
 function closeConfirmation() {
@@ -241,7 +244,7 @@ function closeConfirmation() {
   basketRef.classList.remove("d_none");
   basket.splice(length);
   renderBasketContent();
-  setTimeout(dialRef.close(), 5000)
+  setTimeout(dialRef.close(), 5000);
 }
 
 function bubbleProtection(event) {
@@ -249,8 +252,10 @@ function bubbleProtection(event) {
 }
 
 function changeButton(i) {
+  const item = basket.find((product) => product.name === burgers[i].name);
   let elem = document.getElementById(`add_btn${i}`);
-  if (basket[i].quantity >= 1) {
+  if (item) {
     elem.innerHTML = `Added ${basket[i].quantity}`;
-  }
+  } 
 }
+

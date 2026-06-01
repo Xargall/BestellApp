@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./styles/basket.css" />
     <link rel="stylesheet" href="./styles/fonts.css" />
     <link rel="stylesheet" href="./styles/standard.css" />
+    <link rel="stylesheet" href="./styles/mediaquery.css" />
     <script src="script.js"></script>
     <script src="./scripts/db.js"></script>
     <script src="./scripts/templates.js"></script>
@@ -20,9 +21,7 @@
     <header>
       <div class="topnav">
         <img src="./assets/icons/Logo 02.png" alt="" class="active" />
-        <a href="javascript:void(0);" class="icon" onclick="openBurgerMenu()">
-          <img src="./assets/icons/dehaze.png" alt="" />
-        </a>
+        <img src="./assets/icons/dehaze.png" alt="" />
       </div>
     </header>
     <section class="landing_section">
@@ -43,7 +42,10 @@
       <section class="basket_frame" id="basket"></section>
       <!-- width: 300px , div inside width 100%, height flexible (as we need it), position sticky, top: 0-->
     </div>
-    <dialog id="confirmation" onclick="closeConfirmation()" onload="closeConfirmation()">
+    <dialog
+      id="confirmation"
+      onclick="closeConfirmation()"
+      onload="closeConfirmation()">
       <div id="conf_content"></div>
     </dialog>
     <footer></footer>

@@ -2,46 +2,14 @@
   height: 128px;
   background-color: var(--primary-color);
   padding: 50px 120px;
-  overflow: hidden;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 
 .topnav > img {
   width: 93px;
   height: 38px;
   display: block;
-}
-
-.topnav #myLinks {
-  display: block;
-}
-
-.topnav a.icon {
-  background: var(--primary-color);
-  width: 60px;
-  height: 60px;
-  display: block;
-  position: absolute;
-  top: 38px;
-  right: 40px;
-}
-
-.topnav a > img {
-  width: 45px;
-  height: 35px;
-}
-
-.topnav a {
-  color: rgb(230, 2, 2);
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-  display: block;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
 }
 
 .landing_section {
@@ -100,10 +68,9 @@
 .menu_head {
   display: flex;
   align-items: center;
-
+gap: 30px;
   background-color: var(--primary-color);
   height: 60px;
-  padding: 50px 0 0 300px;
 }
 
 .menu_head img {
@@ -114,7 +81,6 @@
 }
 
 .menu_head p {
-  transform: translate(100px, -25px);
   font-family: "Palanquin";
   font-weight: 700;
   font-size: 2.5rem;
@@ -126,7 +92,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  width: 100%;
+  width: 700px;
   height: 140px;
   padding: 10px;
   margin: 20px 120px 50px;

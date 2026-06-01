@@ -63,7 +63,7 @@ function renderPizzaTemplate(i) {
                 </article>
                 <article class="side_info">
                     <p id="pizza_price${i}"></p>
-                    <button onclick="addBurgerToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
+                    <button onclick="addPizzaToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
                 </article>
                 
             </div>
@@ -82,7 +82,7 @@ function renderSaladTemplate(i) {
                 </article>
                 <article class="side_info">
                     <p id="salad_price${i}"></p>
-                    <button onclick="addBurgerToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
+                    <button onclick="addSaladToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
                 </article>
                 
             </div>
