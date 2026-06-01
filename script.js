@@ -1,6 +1,7 @@
 function init() {
   renderContent();
   renderBasket();
+  renderResponsiveBasket();
 }
 
 function renderContent() {
@@ -145,6 +146,7 @@ function addBurgerToCart(i) {
   if (burger_meal) {
     burger_meal.quantity++;
     renderBasketContent();
+    
   } else {
     basket.push({
       "name": burgers[i].name,
@@ -152,6 +154,7 @@ function addBurgerToCart(i) {
       "quantity": burgers[i].quantity,
     });
     renderBasketContent();
+    
   }
 }
 
@@ -160,7 +163,6 @@ function addPizzaToCart(i) {
   if (pizza_meal) {
     pizza_meal.quantity++;
     renderBasketContent();
-    changeButton(i);
   } else {
     basket.push({
       "name": pizzas[i].name,
@@ -168,6 +170,7 @@ function addPizzaToCart(i) {
       "quantity": pizzas[i].quantity,
     });
     renderBasketContent();
+    
   }
 }
 
@@ -176,7 +179,7 @@ function addSaladToCart(i) {
   if (salad_meal) {
     salad_meal.quantity++;
     renderBasketContent();
-    changeButton(i);
+    
   } else {
     basket.push({
       "name": salads[i].name,
@@ -184,7 +187,7 @@ function addSaladToCart(i) {
       "quantity": salads[i].quantity,
     });
     renderBasketContent();
-    changeButton(i);
+    
   }
 }
 
@@ -210,7 +213,6 @@ function raiseQuantity(i) {
   if (item) {
     item.quantity++;
     renderCardContent(i);
-    
   }
 }
 
@@ -274,18 +276,29 @@ function getIndexFromBasket(burger) {
 }
 
 function renderResponsiveBasket() {
-  const respoBasketRef = document.getElementById("respo_basket");
-  const basketErrRef = document.getElementById("empty_basket");
-  const basketCheckoutRef = document.getElementById("checkout");
-  basketContentRef.innerHTML = "";
-  basketErrRef.innerHTML = "";
-  basketCheckoutRef.innerHTML = "";
+  let basketRef = document.getElementById("respo_basket");
+  basketRef.classList.toggle("d_none");
+  basketRef.innerHTML = getRespoBasketTemplate();
+  renderResponsiveBasketContent();
+}
+
+function renderResponsiveBasketContent() {
+  const respoBasketRef = document.getElementById("respo_basket_content");
+  const respoErrRef = document.getElementById("empty_respo_basket");
+  const respoCheckoutRef = document.getElementById("checkout");
+  
+  respoBasketRef.innerHTML = "";
+  respoErrRef.innerHTML = "";
+  respoCheckoutRef.innerHTML = "";
   if (basket.length === 0) {
-    basketErrRef.innerHTML = getErrorTemplate();
+    respoErrRef.innerHTML = getErrorTemplate();
   } else {
     for (let i = 0; i < basket.length; i++) {
-      basketContentRef.innerHTML += basketContentCard(i);
-      basketCheckoutRef.innerHTML = getCheckoutTemplate(i);
+      const mealRef = document.getElementById(`meal_card${i}`);
+      respoBasketRef.innerHTML += basketContentCard(i);
+      respoCheckoutRef.innerHTML = getCheckoutTemplate(i);
+      mealRef.classList.remove("meal_card");
+      mealRef.classList.add("meal_card_responsive");
       renderCardContent(i);
     }
   }

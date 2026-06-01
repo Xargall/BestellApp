@@ -101,6 +101,17 @@ function getBasketTemplate() {
     `;
 }
 
+function getRespoBasketTemplate() {
+  return /*html*/ `
+        <div class="respo_basket_style">
+            <h3>Your Basket</h3>
+            <div id="respo_basket_content" class="respo_content_style"></div>
+            <div id="empty_respo_basket" class="err"></div>    
+            <div id="checkout" class="respo_checkout_style"></div>        
+        </div>
+    `;
+}
+
 function getCheckoutTemplate(i) {
   return /*html*/ `
         <div class="subtotal_price"><p>Subtotal price</p><p id="subtotal"></p></div>
@@ -119,7 +130,7 @@ function getErrorTemplate() {
 
 function basketContentCard(i) {
   return /*html*/ `
-    <div class="meal_card">
+    <div class="meal_card" id="meal_card${i}">
         <div class="meal_card_head">
             <p id="quantity${i}"></p>
             <button onclick="deleteItem(${i})" class="raise_btn" id="delete${i}"><img src="../assets/icons/delete.png" alt=""></button>
