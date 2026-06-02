@@ -34,7 +34,6 @@ function addBurgerToCart(i) {
   const burger_meal = basket.find(
     (product) => product.name === burgers[i].name,
   );
-  let addToBasketRef = document.getElementById(`add_btn${i}`);
   if (burger_meal) {
     burger_meal.quantity++;
     renderBasketContent();
@@ -255,7 +254,6 @@ function closeConfirmation() {
   basket.splice(length);
   renderBasketContent();
   renderResponsiveBasketContent();
-
   dialRef.close();
 }
 
@@ -279,11 +277,13 @@ function renderResponsiveBasketContent() {
   respoCheckoutRef.innerHTML = "";
   if (basket.length === 0) {
     respoErrRef.innerHTML = getErrorTemplate();
+    renderCartBadge();
   } else {
     for (let i = 0; i < basket.length; i++) {
       respoBasketRef.innerHTML += respoBasketContentCard(i);
       respoCheckoutRef.innerHTML = getRespoCheckoutTemplate(i);
       renderRespoCardContent(i);
+      
     }
   }
 }
@@ -293,6 +293,7 @@ function renderRespoCardContent(i) {
   formattedSubTotalRespo(i);
   quantityRespoRender(i);
   quantityRespoNameRender(i);
+  renderCartBadge(i);
 }
 
 function formattedCardPriceRespo(i) {
@@ -383,4 +384,18 @@ function deleteRespoItem(i) {
 function closeBasket() {
   const closeRef = document.getElementById("respo_basket");
   closeRef.classList.toggle("d_none");
+}
+
+function renderCartBadge() {
+  const cartCount = document.getElementById("cart-counter");
+  const counter = basket.length;
+  let totalQuantity = 0;
+  if (counter === 0) {
+    cartCount.innerHTML = "0";
+  } else {
+    for (let i = 0; i < basket.length; i++) {
+      totalQuantity += basket[i].quantity;
+      cartCount.innerHTML = totalQuantity;
+    }
+  }
 }

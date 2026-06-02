@@ -153,9 +153,9 @@ function quantityNameTemplate(i) {
 function getConfirmationTemplate() {
   return /*html*/ `
         <div onclick="bubbleProtection(event)" class="conf_style">
-            <div class="close"><button onclick="closeConfirmation()" class="close_btn"><img src="../assets/icons/close (1).png" alt=""></button></div>
+            <div class="close"><button onclick="closeConfirmation()" class="close_btn"><img src="./assets/icons/close (1).png" alt=""></button></div>
             <div class="close_text">
-                <img src="../assets/icons/ChatGPT Image Nov 24, 2025, 11_51_33 AM 1.png" alt="">
+                <img src="./assets/icons/ChatGPT Image Nov 24, 2025, 11_51_33 AM 1.png" alt="">
                 <h6>Order Confirmed!</h6>
                 <p>Your food is on the Way!</p>
             </div>

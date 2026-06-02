@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BestellApp</title>
-    <link rel="shortcut icon" href="./assets/icons/logo.png" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="./assets/icons/logo.png"
+      type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="./styles/basket.css" />
     <link rel="stylesheet" href="./styles/fonts.css" />
@@ -37,10 +40,7 @@
       <section class="menu_section" id="main_content"></section>
       <section class="basket_frame" id="main_basket"></section>
     </div>
-    <dialog
-      id="confirmation"
-      onclick="closeConfirmation()"
-      onload="closeConfirmation()">
+    <dialog id="confirmation" onclick="closeConfirmation()">
       <div id="conf_content"></div>
     </dialog>
     <footer class="footer_content">
@@ -60,9 +60,12 @@
         <button>
           <img src="./assets/icons/takeout_dining_2.png" alt="" />
         </button>
-        <button onclick="renderResponsiveBasket()">
-          <img src="./assets/icons/shopping_cart (1).png" alt="" />
-        </button>
+        <div class="cart-wrapper">
+          <button onclick="renderResponsiveBasket()">
+            <img src="./assets/icons/shopping_cart (1).png" alt="" />
+          </button>
+          <span id="cart-counter" class="cart-badge">0</span>
+        </div>
       </div>
     </div>
   </body>

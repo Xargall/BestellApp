@@ -230,6 +230,7 @@ dialog::backdrop {
   color: var(--tertiary-color);
   transition: all 250ms ease-in-out;
   background: white;
+  cursor: pointer;
 }
 
 .add_btn:hover {
@@ -323,6 +324,7 @@ dialog::backdrop {
   line-height: 120%;
   color: white;
   border: none;
+  cursor: pointer;
 }
 
 .respo_checkout_style button:hover {
@@ -383,4 +385,22 @@ dialog::backdrop {
   background: var(--tertiary-color);
   cursor: pointer;
   border: none;
+}
+
+.cart-wrapper {
+  display: flex;
+}
+
+.cart-badge {
+  background: var(--secondary-color);
+  width: 20px;
+  height: 18px;
+  align-self: center;
+  text-align: center;
+  border-radius: 50%;
+  color: var(--primary-color);
+  font-family: "Palanquin";
+  font-weight: 600;
+  line-height: 100%;
+  transform: translate(-10px, -15px);
 }
