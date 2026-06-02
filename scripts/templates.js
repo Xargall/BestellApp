@@ -36,7 +36,7 @@ function getMainTemplate() {
 function renderBurgerTemplate(i) {
   return /*html*/ `
         <div class="meals">
-            <img src="../assets/imgs/burger/${burgerImgs[i]}" alt="">
+            <img src="./assets/imgs/burger/${burgerImgs[i]}" alt="">
             <div class="meal_info">
                 <article class="meal_name">
                     <h5>${burgers[i].name}</h5>
@@ -55,7 +55,7 @@ function renderBurgerTemplate(i) {
 function renderPizzaTemplate(i) {
   return /*html*/ `
         <section class="meals">
-            <img src="../assets/imgs/pizza/${pizzaImgs[i]}" alt="">
+            <img src="./assets/imgs/pizza/${pizzaImgs[i]}" alt="">
             <div class="meal_info">
                 <article class="meal_name">
                     <h5>${pizzas[i].name}</h5>
@@ -74,7 +74,7 @@ function renderPizzaTemplate(i) {
 function renderSaladTemplate(i) {
   return /*html*/ `
         <section class="meals">
-            <img src="../assets/imgs/salad/${saladImgs[i]}" alt="">
+            <img src="./assets/imgs/salad/${saladImgs[i]}" alt="">
             <div class="meal_info">
                 <article class="meal_name">
                     <h5>${salads[i].name}</h5>
@@ -113,7 +113,7 @@ function getCheckoutTemplate(i) {
 function getErrorTemplate() {
   return /*html*/ `
         <p>Nothing here yet. <br> Go ahead and choose something delicious!</p>
-        <img src="../assets/icons/shopping_cart.png" alt="">
+        <img src="./assets/icons/shopping_cart.png" alt="">
     `;
 }
 
@@ -122,7 +122,7 @@ function basketContentCard(i) {
     <div class="meal_card" id="meal_card${i}">
         <div class="meal_card_head">
             <p id="quantity${i}"></p>
-            <button onclick="deleteItem(${i})" class="raise_btn" id="delete${i}"><img src="../assets/icons/delete.png" alt=""></button>
+            <button onclick="deleteItem(${i})" class="raise_btn" id="delete${i}"><img src="./assets/icons/delete.png" alt=""></button>
         </div>
         <div class="price_section">
             <div class="quantity" id="quantity_count${i}"></div>
@@ -169,7 +169,7 @@ function getRespoBasketTemplate() {
         <div class="respo_basket_style">
             <div class="respo_head">
                 <h3>Your Basket</h3>
-                <button onclick="closeBasket()" class="close_btn_respo"><img src="../assets/icons/close (1).png" alt=""></button>
+                <button onclick="closeBasket()" class="close_btn_respo"><img src="./assets/icons/close (1).png" alt=""></button>
             </div>
             <div id="respo_basket_content" class="respo_content_style"></div>
             <div id="empty_respo_basket" class="err"></div>    
@@ -183,7 +183,7 @@ function respoBasketContentCard(i) {
     <div class="meal_card_responsive" id="meal_card_respo${i}">
         <div class="meal_card_head">
             <p id="quantity_respo${i}"></p>
-            <button onclick="deleteRespoItem(${i})" class="raise_btn" id="delete_respo${i}"><img src="../assets/icons/delete.png" alt=""></button>
+            <button onclick="deleteRespoItem(${i})" class="raise_btn" id="delete_respo${i}"><img src="./assets/icons/delete.png" alt=""></button>
         </div>
         <div class="price_section">
             <div class="quantity" id="quantity_count_respo${i}"></div>

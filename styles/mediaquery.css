@@ -33,7 +33,7 @@
     width: 300px;
   }
 
-  .close{
+  .close {
     padding: 0;
   }
 
@@ -43,6 +43,10 @@
 
   .close_text img {
     width: 70px;
+  }
+
+  .footer_content {
+    gap: 0;
   }
 
   .basket_frame {
@@ -220,7 +224,7 @@
   }
 
   .menu_head {
-    padding-left: 16px;
+    padding-left: 24px;
   }
 }
 
@@ -272,10 +276,18 @@
   .meals img {
     width: 110px;
   }
+
+  .menu_head {
+    padding-left: 90px;
+  }
 }
 
 @media screen and (min-width: 1195px) and (max-width: 1439px) {
   .menubar {
     display: none;
+  }
+
+  .menu_head {
+    padding-left: 120px;
   }
 }
