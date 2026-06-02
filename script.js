@@ -34,6 +34,92 @@ function renderSaladCard() {
     formattedSaladPrice(i);
   }
 }
+function formattedBurgerPrice(i) {
+  const priceRef = document.getElementById(`burger_price${i}`);
+  const price = burgers[i].price;
+  const formattedPrice = price.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  priceRef.innerHTML = formattedPrice;
+}
+
+function formattedPizzaPrice(i) {
+  const priceRef = document.getElementById(`pizza_price${i}`);
+  const price = pizzas[i].price;
+  const formattedPrice = price.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  priceRef.innerHTML = formattedPrice;
+}
+
+function formattedSaladPrice(i) {
+  const priceRef = document.getElementById(`salad_price${i}`);
+  const price = salads[i].price;
+  const formattedPrice = price.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  priceRef.innerHTML = formattedPrice;
+}
+
+function addBurgerToCart(i) {
+  const burger_meal = basket.find(
+    (product) => product.name === burgers[i].name,
+  );
+  let addToBasketRef = document.getElementById(`add_btn${i}`);
+  if (burger_meal) {
+    burger_meal.quantity++;
+    renderBasketContent();
+    renderResponsiveBasketContent();
+  } else {
+    basket.push({
+      "name": burgers[i].name,
+      "price": burgers[i].price,
+      "quantity": burgers[i].quantity,
+    });
+    renderBasketContent();
+    renderResponsiveBasketContent();
+  }
+}
+
+function addPizzaToCart(i) {
+  const pizza_meal = basket.find((product) => product.name === pizzas[i].name);
+  if (pizza_meal) {
+    pizza_meal.quantity++;
+    renderBasketContent();
+    renderResponsiveBasketContent();
+  } else {
+    basket.push({
+      "name": pizzas[i].name,
+      "price": pizzas[i].price,
+      "quantity": pizzas[i].quantity,
+    });
+    renderBasketContent();
+    renderResponsiveBasketContent();
+  }
+}
+
+function addSaladToCart(i) {
+  const salad_meal = basket.find((product) => product.name === salads[i].name);
+  if (salad_meal) {
+    salad_meal.quantity++;
+    renderBasketContent();
+    renderResponsiveBasketContent();
+  } else {
+    basket.push({
+      "name": salads[i].name,
+      "price": salads[i].price,
+      "quantity": salads[i].quantity,
+    });
+    renderBasketContent();
+    renderResponsiveBasketContent();
+  }
+}
 
 function renderBasket() {
   let basketRef = document.getElementById("main_basket");
@@ -103,92 +189,6 @@ function quantityNameRender(i) {
   const nameRef = document.getElementById(`quantity${i}`);
   nameRef.innerHTML = "";
   nameRef.innerHTML = quantityNameTemplate(i);
-}
-
-function formattedBurgerPrice(i) {
-  const priceRef = document.getElementById(`burger_price${i}`);
-  const price = burgers[i].price;
-  const formattedPrice = price.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
-  priceRef.innerHTML = formattedPrice;
-}
-
-function formattedPizzaPrice(i) {
-  const priceRef = document.getElementById(`pizza_price${i}`);
-  const price = pizzas[i].price;
-  const formattedPrice = price.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
-  priceRef.innerHTML = formattedPrice;
-}
-
-function formattedSaladPrice(i) {
-  const priceRef = document.getElementById(`salad_price${i}`);
-  const price = salads[i].price;
-  const formattedPrice = price.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
-  priceRef.innerHTML = formattedPrice;
-}
-
-function addBurgerToCart(i) {
-  const burger_meal = basket.find(
-    (product) => product.name === burgers[i].name,
-  );
-  let addToBasketRef = document.getElementById(`add_btn${i}`);
-  if (burger_meal) {
-    burger_meal.quantity++;
-    renderBasketContent();
-    
-  } else {
-    basket.push({
-      "name": burgers[i].name,
-      "price": burgers[i].price,
-      "quantity": burgers[i].quantity,
-    });
-    renderBasketContent();
-    
-  }
-}
-
-function addPizzaToCart(i) {
-  const pizza_meal = basket.find((product) => product.name === pizzas[i].name);
-  if (pizza_meal) {
-    pizza_meal.quantity++;
-    renderBasketContent();
-  } else {
-    basket.push({
-      "name": pizzas[i].name,
-      "price": pizzas[i].price,
-      "quantity": pizzas[i].quantity,
-    });
-    renderBasketContent();
-    
-  }
-}
-
-function addSaladToCart(i) {
-  const salad_meal = basket.find((product) => product.name === salads[i].name);
-  if (salad_meal) {
-    salad_meal.quantity++;
-    renderBasketContent();
-    
-  } else {
-    basket.push({
-      "name": salads[i].name,
-      "price": salads[i].price,
-      "quantity": salads[i].quantity,
-    });
-    renderBasketContent();
-    
-  }
 }
 
 function quantityRender(i) {
@@ -285,8 +285,7 @@ function renderResponsiveBasket() {
 function renderResponsiveBasketContent() {
   const respoBasketRef = document.getElementById("respo_basket_content");
   const respoErrRef = document.getElementById("empty_respo_basket");
-  const respoCheckoutRef = document.getElementById("checkout");
-  
+  const respoCheckoutRef = document.getElementById("checkout_respo");
   respoBasketRef.innerHTML = "";
   respoErrRef.innerHTML = "";
   respoCheckoutRef.innerHTML = "";
@@ -294,12 +293,101 @@ function renderResponsiveBasketContent() {
     respoErrRef.innerHTML = getErrorTemplate();
   } else {
     for (let i = 0; i < basket.length; i++) {
-      const mealRef = document.getElementById(`meal_card${i}`);
-      respoBasketRef.innerHTML += basketContentCard(i);
-      respoCheckoutRef.innerHTML = getCheckoutTemplate(i);
-      mealRef.classList.remove("meal_card");
-      mealRef.classList.add("meal_card_responsive");
-      renderCardContent(i);
+      respoBasketRef.innerHTML += respoBasketContentCard(i);
+      respoCheckoutRef.innerHTML = getRespoCheckoutTemplate(i);
+      renderRespoCardContent(i);
     }
   }
+}
+
+function renderRespoCardContent(i) {
+  formattedCardPriceRespo(i);
+  formattedSubTotalRespo(i);
+  quantityRespoRender(i);
+  quantityRespoNameRender(i);
+}
+
+function formattedCardPriceRespo(i) {
+  const priceRespoRef = document.getElementById(`price_respo${i}`);
+  priceRespoRef.innerHTML = "";
+  const cardPrice = basket[i].price * basket[i].quantity;
+  const formattedPrice = cardPrice.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+  priceRespoRef.innerHTML += formattedPrice;
+}
+
+function formattedSubTotalRespo(i) {
+  let subTotalRef = document.getElementById("subtotal_respo");
+  let totalPriceRef = document.getElementById("total_respo");
+  let checkoutTotal = document.getElementById("checkout_btn_respo");
+  let total = 0;
+  let subTotal = 0;
+  for (i = 0; i < basket.length; i++)
+    subTotal += basket[i].price * basket[i].quantity;
+  let formattedSubTotal = subTotal.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+  subTotalRef.innerHTML = formattedSubTotal;
+  total += subTotal + 4.99;
+  let formattedTotal = total.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+  totalPriceRef.innerHTML = formattedTotal;
+  checkoutTotal.innerHTML = checkoutButtonTemplate(formattedTotal);
+}
+
+function quantityRespoNameRender(i) {
+  const nameRef = document.getElementById(`quantity_respo${i}`);
+  nameRef.innerHTML = "";
+  nameRef.innerHTML = quantityNameTemplate(i);
+}
+
+function quantityRespoRender(i) {
+  const quantRef = document.getElementById(`quantity_count_respo${i}`);
+  const deleteRef = document.getElementById(`delete_respo${i}`);
+  quantRef.innerHTML = "";
+  quantRef.innerHTML = renderRespoQuantityCount(i);
+  if (basket[i].quantity > 1) {
+    document.getElementById(`img2_respo${i}`).src = "./assets/icons/+.png";
+    document.getElementById(`img_respo${i}`).src = "./assets/icons/-.png";
+    deleteRef.classList.remove("d_none");
+  } else {
+    document.getElementById(`img2_respo${i}`).src = "./assets/icons/+.png";
+    document.getElementById(`img_respo${i}`).src = "./assets/icons/delete.png";
+    deleteRef.classList.add("d_none");
+  }
+}
+
+function raiseRespoQuantity(i) {
+  const item = basket.find((product) => product.name === basket[i].name);
+  const deleteRef = document.getElementById("delete_respo");
+  if (item) {
+    item.quantity++;
+    renderRespoCardContent(i);
+  }
+}
+
+function lowerRespoQuantity(i) {
+  const item = basket.find((product) => product.name === basket[i].name);
+
+  if (item.quantity > 1) {
+    item.quantity--;
+    renderRespoCardContent(i);
+
+    renderResponsiveBasketContent();
+  } else if ((item.quantity = 1)) {
+    basket.splice(i, 1);
+
+    renderResponsiveBasketContent();
+  }
+}
+
+function deleteRespoItem(i) {
+  const item = basket.find((product) => product.name === basket[i].name);
+  basket.splice(i, 1);
+  renderResponsiveBasketContent();
 }

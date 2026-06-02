@@ -294,7 +294,43 @@ dialog::backdrop {
   font-weight: 700;
   font-size: 2rem;
   color: var(--secondary-color);
-  padding: 38px 60px;
+  padding: 20px 60px;
+}
+
+.respo_content_style {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.line-decoration {
+  border-bottom: 3px solid white;
+  padding: 8px 0 15px;
+}
+
+.respo_checkout_style h6 {
+  font-family: "Palanquin";
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: white;
+  padding: 10px 0 15px;
+}
+
+.respo_checkout_style button {
+  width: 320px;
+  height: 64px;
+  border-radius: 60px;
+  padding: 13px 55px;
+  background-color: var(--primary-color);
+  font-family: "Palanquin";
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 120%;
+  color: white;
+  border: none;
+}
+
+.respo_checkout_style button:hover {
+  scale: 1.05;
 }
 
 .respo_checkout_style {
@@ -314,7 +350,7 @@ dialog::backdrop {
 }
 
 .meal_card_responsive {
-  width: 340px;
+  width: 280px;
   height: 110px;
   background: var(--secondary-color);
   border-radius: 20px;

@@ -101,17 +101,6 @@ function getBasketTemplate() {
     `;
 }
 
-function getRespoBasketTemplate() {
-  return /*html*/ `
-        <div class="respo_basket_style">
-            <h3>Your Basket</h3>
-            <div id="respo_basket_content" class="respo_content_style"></div>
-            <div id="empty_respo_basket" class="err"></div>    
-            <div id="checkout" class="respo_checkout_style"></div>        
-        </div>
-    `;
-}
-
 function getCheckoutTemplate(i) {
   return /*html*/ `
         <div class="subtotal_price"><p>Subtotal price</p><p id="subtotal"></p></div>
@@ -172,5 +161,46 @@ function getConfirmationTemplate() {
             </div>
 
         </div>
+    `;
+}
+
+function getRespoBasketTemplate() {
+  return /*html*/ `
+        <div class="respo_basket_style">
+            <h3>Your Basket</h3>
+            <div id="respo_basket_content" class="respo_content_style"></div>
+            <div id="empty_respo_basket" class="err"></div>    
+            <div id="checkout_respo" class="respo_checkout_style"></div>        
+        </div>
+    `;
+}
+
+function respoBasketContentCard(i) {
+  return /*html*/ `
+    <div class="meal_card_responsive" id="meal_card_respo${i}">
+        <div class="meal_card_head">
+            <p id="quantity_respo${i}"></p>
+            <button onclick="deleteRespoItem(${i})" class="raise_btn" id="delete_respo${i}"><img src="../assets/icons/delete.png" alt=""></button>
+        </div>
+        <div class="price_section">
+            <div class="quantity" id="quantity_count_respo${i}"></div>
+            <p id="price_respo${i}"></p>
+        </div>
+    </div>
+    `;
+}
+
+function getRespoCheckoutTemplate(i) {
+  return /*html*/ `
+        <div class="subtotal_price"><p>Subtotal price</p><p id="subtotal_respo"></p></div>
+        <div class="subtotal_price line-decoration"><p>Delivery Fee</p><p>4,99€</p></div>
+        <div class="subtotal_price"><h6>Total</h6><h6 id="total_respo"></h6></div>
+        <div id="checkout_btn_respo"></div>
+    `;
+}
+
+function renderRespoQuantityCount(i) {
+  return /*html*/ `
+        <button onclick="lowerRespoQuantity(${i})" class="raise_btn"><img src="" alt="" id="img_respo${i}"></button><p>${basket[i].quantity}</p><button onclick="raiseRespoQuantity(${i})" class="raise_btn" ><img src="" alt="" id="img2_respo${i}"></button>
     `;
 }
