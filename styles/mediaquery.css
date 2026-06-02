@@ -29,6 +29,22 @@
 }
 
 @media screen and (max-width: 768px) {
+  dialog {
+    width: 300px;
+  }
+
+  .close{
+    padding: 0;
+  }
+
+  .close_text {
+    gap: 8px;
+  }
+
+  .close_text img {
+    width: 70px;
+  }
+
   .basket_frame {
     display: none;
   }

@@ -254,6 +254,7 @@ function closeConfirmation() {
   basketRef.classList.remove("d_none");
   basket.splice(length);
   renderBasketContent();
+  renderResponsiveBasketContent();
 
   dialRef.close();
 }
