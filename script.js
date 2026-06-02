@@ -391,3 +391,8 @@ function deleteRespoItem(i) {
   basket.splice(i, 1);
   renderResponsiveBasketContent();
 }
+
+function closeBasket() {
+  const closeRef = document.getElementById("respo_basket");
+  closeRef.classList.toggle("d_none");
+}

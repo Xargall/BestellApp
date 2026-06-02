@@ -167,7 +167,10 @@ function getConfirmationTemplate() {
 function getRespoBasketTemplate() {
   return /*html*/ `
         <div class="respo_basket_style">
-            <h3>Your Basket</h3>
+            <div class="respo_head">
+                <h3>Your Basket</h3>
+                <button onclick="closeBasket()" class="close_btn"><img src="../assets/icons/close (1).png" alt=""></button>
+            </div>
             <div id="respo_basket_content" class="respo_content_style"></div>
             <div id="empty_respo_basket" class="err"></div>    
             <div id="checkout_respo" class="respo_checkout_style"></div>        
