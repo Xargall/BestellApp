@@ -19,46 +19,9 @@ function renderBurgerCard() {
   }
 }
 
-function renderPizzaCard() {
-  const pizzaRef = document.getElementById("pizza");
-  for (let i = 0; i < pizzas.length; i++) {
-    pizzaRef.innerHTML += renderPizzaTemplate(i);
-    formattedPizzaPrice(i);
-  }
-}
-
-function renderSaladCard() {
-  const saladRef = document.getElementById("salad");
-  for (let i = 0; i < salads.length; i++) {
-    saladRef.innerHTML += renderSaladTemplate(i);
-    formattedSaladPrice(i);
-  }
-}
 function formattedBurgerPrice(i) {
   const priceRef = document.getElementById(`burger_price${i}`);
   const price = burgers[i].price;
-  const formattedPrice = price.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
-  priceRef.innerHTML = formattedPrice;
-}
-
-function formattedPizzaPrice(i) {
-  const priceRef = document.getElementById(`pizza_price${i}`);
-  const price = pizzas[i].price;
-  const formattedPrice = price.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
-  priceRef.innerHTML = formattedPrice;
-}
-
-function formattedSaladPrice(i) {
-  const priceRef = document.getElementById(`salad_price${i}`);
-  const price = salads[i].price;
   const formattedPrice = price.toLocaleString("de-DE", {
     style: "currency",
     currency: "EUR",
@@ -87,6 +50,25 @@ function addBurgerToCart(i) {
   }
 }
 
+function renderPizzaCard() {
+  const pizzaRef = document.getElementById("pizza");
+  for (let i = 0; i < pizzas.length; i++) {
+    pizzaRef.innerHTML += renderPizzaTemplate(i);
+    formattedPizzaPrice(i);
+  }
+}
+
+function formattedPizzaPrice(i) {
+  const priceRef = document.getElementById(`pizza_price${i}`);
+  const price = pizzas[i].price;
+  const formattedPrice = price.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  priceRef.innerHTML = formattedPrice;
+}
+
 function addPizzaToCart(i) {
   const pizza_meal = basket.find((product) => product.name === pizzas[i].name);
   if (pizza_meal) {
@@ -102,6 +84,25 @@ function addPizzaToCart(i) {
     renderBasketContent();
     renderResponsiveBasketContent();
   }
+}
+
+function renderSaladCard() {
+  const saladRef = document.getElementById("salad");
+  for (let i = 0; i < salads.length; i++) {
+    saladRef.innerHTML += renderSaladTemplate(i);
+    formattedSaladPrice(i);
+  }
+}
+
+function formattedSaladPrice(i) {
+  const priceRef = document.getElementById(`salad_price${i}`);
+  const price = salads[i].price;
+  const formattedPrice = price.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  priceRef.innerHTML = formattedPrice;
 }
 
 function addSaladToCart(i) {
@@ -259,20 +260,6 @@ function closeConfirmation() {
 
 function bubbleProtection(event) {
   event.stopPropagation();
-}
-
-// function changeButton(i) {
-//   const item = basket.find((product) => product.name === burgers[i].name);
-//   let elem = document.getElementById(`add_btn${i}`);
-//   let burger = basket[i].quantity;
-//   getIndexFromBasket(burger)
-//   if (item) {
-//     elem.innerHTML = `Added ${burger}`;
-//   }
-// }
-
-function getIndexFromBasket(burger) {
-  return basket.indexOf(burger);
 }
 
 function renderResponsiveBasket() {

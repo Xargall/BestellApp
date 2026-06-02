@@ -130,6 +130,15 @@
     flex-direction: column-reverse;
     justify-content: center;
   }
+
+  .respo_basket_style h3 {
+    padding: 20px 40px;
+  }
+
+  .respo_checkout_style button {
+    width: 300px;
+    padding: 13px 30px;
+  }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {

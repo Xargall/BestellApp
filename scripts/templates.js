@@ -169,7 +169,7 @@ function getRespoBasketTemplate() {
         <div class="respo_basket_style">
             <div class="respo_head">
                 <h3>Your Basket</h3>
-                <button onclick="closeBasket()" class="close_btn"><img src="../assets/icons/close (1).png" alt=""></button>
+                <button onclick="closeBasket()" class="close_btn_respo"><img src="../assets/icons/close (1).png" alt=""></button>
             </div>
             <div id="respo_basket_content" class="respo_content_style"></div>
             <div id="empty_respo_basket" class="err"></div>    
