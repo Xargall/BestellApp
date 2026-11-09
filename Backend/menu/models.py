@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class Mead(models.Model):
+class Meal(models.Model):
     class Category(models.TextChoices):
         BURGER = "burger", "Burger"
         PIZZA = "pizza", "Pizza"
