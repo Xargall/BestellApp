@@ -1,5 +1,5 @@
 function getMainTemplate() {
-  return /*html*/ `
+    return /*html*/ `
         <div class="menu">
           <div class="menu_head">
             <img
@@ -33,125 +33,101 @@ function getMainTemplate() {
     `;
 }
 
-function renderBurgerTemplate(i) {
-  return /*html*/ `
+function renderMealTemplate(meal) {
+    return /*html*/ `
         <div class="meals">
-            <img src="./assets/imgs/burger/${burgerImgs[i]}" alt="">
+            <img src="./assets/imgs/${meal.category}/${meal.image_filename}" alt="">
             <div class="meal_info">
                 <article class="meal_name">
-                    <h5>${burgers[i].name}</h5>
-                    <p>${burgers[i].description}</p>
+                    <h5>${meal.name}</h5>
+                    <p>${meal.description}</p>
                 </article>
                 <article class="side_info">
-                    <p id="burger_price${i}"></p>
-                    <button onclick="addBurgerToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
+                    <p id="price_${meal.id}"></p>
+                    <button onclick="addToCart(${meal.id})" id="add_btn_${meal.id}" class="add_btn">Add to basket</button>
                 </article>
-                
+
             </div>
         </div>
     `;
 }
 
-function renderPizzaTemplate(i) {
-  return /*html*/ `
-        <section class="meals">
-            <img src="./assets/imgs/pizza/${pizzaImgs[i]}" alt="">
-            <div class="meal_info">
-                <article class="meal_name">
-                    <h5>${pizzas[i].name}</h5>
-                    <p>${pizzas[i].description}</p>
-                </article>
-                <article class="side_info">
-                    <p id="pizza_price${i}"></p>
-                    <button onclick="addPizzaToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
-                </article>
-                
+function getBasketTemplate(suffix = "") {
+    if (suffix === "_respo") {
+        return /*html*/ `
+        <div class="respo_basket_style">
+            <div class="respo_head">
+                <h3>Your Basket</h3>
+                <button onclick="closeBasket()" class="close_btn_respo"><img src="./assets/icons/close (1).png" alt=""></button>
             </div>
-        </section>
+            <div id="respo_basket_content" class="respo_content_style"></div>
+            <div id="empty_respo_basket" class="err"></div>
+            <div id="checkout_respo" class="respo_checkout_style"></div>
+        </div>
     `;
-}
-
-function renderSaladTemplate(i) {
-  return /*html*/ `
-        <section class="meals">
-            <img src="./assets/imgs/salad/${saladImgs[i]}" alt="">
-            <div class="meal_info">
-                <article class="meal_name">
-                    <h5>${salads[i].name}</h5>
-                    <p>${salads[i].description}</p>
-                </article>
-                <article class="side_info">
-                    <p id="salad_price${i}"></p>
-                    <button onclick="addSaladToCart(${i})" id="add_btn${i}" class="add_btn">Add to basket</button>
-                </article>
-                
-            </div>
-        </section>
-    `;
-}
-
-function getBasketTemplate() {
-  return /*html*/ `
+    }
+    return /*html*/ `
         <div class="basket_style">
             <h3>Your Basket</h3>
             <div id="basket_content" class="content_style"></div>
-            <div id="empty_basket" class="err"></div>    
-            <div id="checkout" class="checkout_style"></div>        
+            <div id="empty_basket" class="err"></div>
+            <div id="checkout" class="checkout_style"></div>
         </div>
     `;
 }
 
-function getCheckoutTemplate(i) {
-  return /*html*/ `
-        <div class="subtotal_price"><p>Subtotal price</p><p id="subtotal"></p></div>
+function getCheckoutTemplate(suffix = "") {
+    return /*html*/ `
+        <div class="subtotal_price"><p>Subtotal price</p><p id="subtotal${suffix}"></p></div>
         <div class="subtotal_price line-decoration"><p>Delivery Fee</p><p>4,99€</p></div>
-        <div class="subtotal_price"><h6>Total</h6><h6 id="total"></h6></div>
-        <div id="checkout_btn"></div>
+        <div class="subtotal_price"><h6>Total</h6><h6 id="total${suffix}"></h6></div>
+        <div id="checkout_btn${suffix}"></div>
     `;
 }
 
 function getErrorTemplate() {
-  return /*html*/ `
+    return /*html*/ `
         <p>Nothing here yet. <br> Go ahead and choose something delicious!</p>
         <img src="./assets/icons/shopping_cart.png" alt="">
     `;
 }
 
-function basketContentCard(i) {
-  return /*html*/ `
-    <div class="meal_card" id="meal_card${i}">
+function basketContentCard(i, suffix = "") {
+    const cardClass = suffix === "_respo" ? "meal_card_responsive" : "meal_card";
+    return /*html*/ `
+    <div class="${cardClass}" id="meal_card${suffix}${i}">
         <div class="meal_card_head">
-            <p id="quantity${i}"></p>
-            <button onclick="deleteItem(${i})" class="raise_btn" id="delete${i}"><img src="./assets/icons/delete.png" alt=""></button>
+            <p id="quantity${suffix}${i}"></p>
+            <button onclick="deleteItem(${i}, '${suffix}')" class="raise_btn" id="delete${suffix}${i}"><img src="./assets/icons/delete.png" alt=""></button>
         </div>
         <div class="price_section">
-            <div class="quantity" id="quantity_count${i}"></div>
-            <p id="price${i}"></p>
+            <div class="quantity" id="quantity_count${suffix}${i}"></div>
+            <p id="price${suffix}${i}"></p>
         </div>
     </div>
     `;
 }
 
 function checkoutButtonTemplate(formattedTotal) {
-  return /*html*/ `
+    return /*html*/ `
         <button onclick="sendConfirmation()">Buy now (${formattedTotal})</button>
     `;
 }
 
-function renderQuantityCount(i) {
-  return /*html*/ `
-        <button onclick="lowerQuantity(${i})" class="raise_btn"><img src="" alt="" id="img${i}"></button><p>${basket[i].quantity}</p><button onclick="raiseQuantity(${i})" class="raise_btn" ><img src="" alt="" id="img2${i}"></button>
+function renderQuantityCount(i, suffix = "") {
+    return /*html*/ `
+        <button onclick="lowerQuantity(${i}, '${suffix}')" class="raise_btn"><img src="" alt="" id="img${suffix}${i}"></button><p>${basket[i].quantity}</p><button onclick="raiseQuantity(${i}, '${suffix}')" class="raise_btn" ><img src="" alt="" id="img2${suffix}${i}"></button>
     `;
 }
 
 function quantityNameTemplate(i) {
-  return /*html*/ `
+    return /*html*/ `
         ${basket[i].quantity} x ${basket[i].name}
     `;
 }
 
 function getConfirmationTemplate() {
-  return /*html*/ `
+    return /*html*/ `
         <div onclick="bubbleProtection(event)" class="conf_style">
             <div class="close"><button onclick="closeConfirmation()" class="close_btn"><img src="./assets/icons/close (1).png" alt=""></button></div>
             <div class="close_text">
@@ -161,49 +137,5 @@ function getConfirmationTemplate() {
             </div>
 
         </div>
-    `;
-}
-
-function getRespoBasketTemplate() {
-  return /*html*/ `
-        <div class="respo_basket_style">
-            <div class="respo_head">
-                <h3>Your Basket</h3>
-                <button onclick="closeBasket()" class="close_btn_respo"><img src="./assets/icons/close (1).png" alt=""></button>
-            </div>
-            <div id="respo_basket_content" class="respo_content_style"></div>
-            <div id="empty_respo_basket" class="err"></div>    
-            <div id="checkout_respo" class="respo_checkout_style"></div>        
-        </div>
-    `;
-}
-
-function respoBasketContentCard(i) {
-  return /*html*/ `
-    <div class="meal_card_responsive" id="meal_card_respo${i}">
-        <div class="meal_card_head">
-            <p id="quantity_respo${i}"></p>
-            <button onclick="deleteRespoItem(${i})" class="raise_btn" id="delete_respo${i}"><img src="./assets/icons/delete.png" alt=""></button>
-        </div>
-        <div class="price_section">
-            <div class="quantity" id="quantity_count_respo${i}"></div>
-            <p id="price_respo${i}"></p>
-        </div>
-    </div>
-    `;
-}
-
-function getRespoCheckoutTemplate(i) {
-  return /*html*/ `
-        <div class="subtotal_price"><p>Subtotal price</p><p id="subtotal_respo"></p></div>
-        <div class="subtotal_price line-decoration"><p>Delivery Fee</p><p>4,99€</p></div>
-        <div class="subtotal_price"><h6>Total</h6><h6 id="total_respo"></h6></div>
-        <div id="checkout_btn_respo"></div>
-    `;
-}
-
-function renderRespoQuantityCount(i) {
-  return /*html*/ `
-        <button onclick="lowerRespoQuantity(${i})" class="raise_btn"><img src="" alt="" id="img_respo${i}"></button><p>${basket[i].quantity}</p><button onclick="raiseRespoQuantity(${i})" class="raise_btn" ><img src="" alt="" id="img2_respo${i}"></button>
     `;
 }

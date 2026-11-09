@@ -1,240 +1,202 @@
-function init() {
+async function init() {
+  await loadMeals();
   renderContent();
   renderBasket();
   renderResponsiveBasket();
 }
 
+// Formatiert eine Zahl als Euro-Betrag nach deutschem Format (z.B. 16,90 €).
+function formatCurrency(amount) {
+  return amount.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
+}
+
+// Bildet Element-IDs für den jeweiligen Warenkorb-Container. suffix ist ""
+// für den normalen (Desktop-)Warenkorb oder "_respo" für den mobilen.
+// Diese beiden IDs folgen keinem einfachen "basis + suffix"-Muster
+// (respo_basket_content statt basket_content_respo), deshalb eine Lookup-Map.
+const BASKET_CONTAINER_IDS = {
+  "": { content: "basket_content", empty: "empty_basket", checkout: "checkout" },
+  "_respo": {
+    content: "respo_basket_content",
+    empty: "empty_respo_basket",
+    checkout: "checkout_respo",
+  },
+};
+
 function renderContent() {
   document.getElementById("main_content").innerHTML = getMainTemplate();
-  renderBurgerCard();
-  renderPizzaCard();
-  renderSaladCard();
+  renderMealSection("burger");
+  renderMealSection("pizza");
+  renderMealSection("salad");
 }
 
-function renderBurgerCard() {
-  const burgerRef = document.getElementById("burger");
-  for (let i = 0; i < burgers.length; i++) {
-    burgerRef.innerHTML += renderBurgerTemplate(i);
-    formattedBurgerPrice(i);
-  }
-}
+// Rendert eine Menü-Sektion (Burger/Pizza/Salat). Ersetzt die früheren
+// renderBurgerCard/renderPizzaCard/renderSaladCard, die bis auf den
+// Kategorienamen identisch waren.
+function renderMealSection(category) {
+  const sectionRef = document.getElementById(category);
+  const categoryMeals = getMealsByCategory(category);
 
-function formattedBurgerPrice(i) {
-  const priceRef = document.getElementById(`burger_price${i}`);
-  const price = burgers[i].price;
-  const formattedPrice = price.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
+  categoryMeals.forEach((meal) => {
+    sectionRef.innerHTML += renderMealTemplate(meal);
+    const priceRef = document.getElementById(`price_${meal.id}`);
+    priceRef.innerHTML = formatCurrency(meal.price);
   });
-
-  priceRef.innerHTML = formattedPrice;
 }
 
-function addBurgerToCart(i) {
-  const burger_meal = basket.find(
-    (product) => product.name === burgers[i].name,
-  );
-  if (burger_meal) {
-    burger_meal.quantity++;
-    renderBasketContent();
-    renderResponsiveBasketContent();
+// Aktualisiert den "Add to basket"-Button zum passenden Gericht.
+// quantity > 0 -> zeigt die aktuelle Menge, quantity === 0 -> Reset auf Ursprungstext.
+function updateAddButton(name, quantity) {
+  const meal = meals.find((m) => m.name === name);
+  if (!meal) return;
+  const buttonRef = document.getElementById(`add_btn_${meal.id}`);
+  if (!buttonRef) return;
+  buttonRef.innerHTML = quantity > 0 ? `${quantity} added` : "Add to basket";
+}
+
+// Fügt ein Gericht zum Warenkorb hinzu (oder erhöht die Menge, falls schon
+// vorhanden). Ersetzt die früheren addBurgerToCart/addPizzaToCart/
+// addSaladToCart, die bis auf das Quell-Array identisch waren.
+function addToCart(mealId) {
+  const meal = getMealById(mealId);
+  const existingItem = basket.find((product) => product.name === meal.name);
+
+  if (existingItem) {
+    existingItem.quantity++;
   } else {
     basket.push({
-      "name": burgers[i].name,
-      "price": burgers[i].price,
-      "quantity": burgers[i].quantity,
+      "name": meal.name,
+      "price": meal.price,
+      "quantity": 1,
     });
-    renderBasketContent();
-    renderResponsiveBasketContent();
   }
-}
 
-function renderPizzaCard() {
-  const pizzaRef = document.getElementById("pizza");
-  for (let i = 0; i < pizzas.length; i++) {
-    pizzaRef.innerHTML += renderPizzaTemplate(i);
-    formattedPizzaPrice(i);
-  }
-}
+  const quantityInBasket = existingItem ? existingItem.quantity : 1;
+  updateAddButton(meal.name, quantityInBasket);
 
-function formattedPizzaPrice(i) {
-  const priceRef = document.getElementById(`pizza_price${i}`);
-  const price = pizzas[i].price;
-  const formattedPrice = price.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
-  priceRef.innerHTML = formattedPrice;
-}
-
-function addPizzaToCart(i) {
-  const pizza_meal = basket.find((product) => product.name === pizzas[i].name);
-  if (pizza_meal) {
-    pizza_meal.quantity++;
-    renderBasketContent();
-    renderResponsiveBasketContent();
-  } else {
-    basket.push({
-      "name": pizzas[i].name,
-      "price": pizzas[i].price,
-      "quantity": pizzas[i].quantity,
-    });
-    renderBasketContent();
-    renderResponsiveBasketContent();
-  }
-}
-
-function renderSaladCard() {
-  const saladRef = document.getElementById("salad");
-  for (let i = 0; i < salads.length; i++) {
-    saladRef.innerHTML += renderSaladTemplate(i);
-    formattedSaladPrice(i);
-  }
-}
-
-function formattedSaladPrice(i) {
-  const priceRef = document.getElementById(`salad_price${i}`);
-  const price = salads[i].price;
-  const formattedPrice = price.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
-  priceRef.innerHTML = formattedPrice;
-}
-
-function addSaladToCart(i) {
-  const salad_meal = basket.find((product) => product.name === salads[i].name);
-  if (salad_meal) {
-    salad_meal.quantity++;
-    renderBasketContent();
-    renderResponsiveBasketContent();
-  } else {
-    basket.push({
-      "name": salads[i].name,
-      "price": salads[i].price,
-      "quantity": salads[i].quantity,
-    });
-    renderBasketContent();
-    renderResponsiveBasketContent();
-  }
+  renderBasketContent("");
+  renderBasketContent("_respo");
 }
 
 function renderBasket() {
-  let basketRef = document.getElementById("main_basket");
-  basketRef.innerHTML = getBasketTemplate();
-  renderBasketContent();
+  const basketRef = document.getElementById("main_basket");
+  basketRef.innerHTML = getBasketTemplate("");
+  renderBasketContent("");
 }
 
-function renderBasketContent() {
-  const basketContentRef = document.getElementById("basket_content");
-  const basketErrRef = document.getElementById("empty_basket");
-  const basketCheckoutRef = document.getElementById("checkout");
-  basketContentRef.innerHTML = "";
-  basketErrRef.innerHTML = "";
-  basketCheckoutRef.innerHTML = "";
+function renderResponsiveBasket() {
+  const basketRef = document.getElementById("respo_basket");
+  basketRef.classList.toggle("d_none");
+  basketRef.innerHTML = getBasketTemplate("_respo");
+  renderBasketContent("_respo");
+}
+
+// Rendert den kompletten Warenkorb-Inhalt - normal (suffix "") oder
+// responsive (suffix "_respo"). Ersetzt die früheren renderBasketContent/
+// renderResponsiveBasketContent.
+function renderBasketContent(suffix) {
+  const ids = BASKET_CONTAINER_IDS[suffix];
+  const contentRef = document.getElementById(ids.content);
+  const errRef = document.getElementById(ids.empty);
+  const checkoutRef = document.getElementById(ids.checkout);
+  contentRef.innerHTML = "";
+  errRef.innerHTML = "";
+  checkoutRef.innerHTML = "";
+
   if (basket.length === 0) {
-    basketErrRef.innerHTML = getErrorTemplate();
+    errRef.innerHTML = getErrorTemplate();
+    if (suffix === "_respo") renderCartBadge();
   } else {
     for (let i = 0; i < basket.length; i++) {
-      basketContentRef.innerHTML += basketContentCard(i);
-      basketCheckoutRef.innerHTML = getCheckoutTemplate(i);
-      renderCardContent(i);
+      contentRef.innerHTML += basketContentCard(i, suffix);
+      checkoutRef.innerHTML = getCheckoutTemplate(suffix);
+      renderCardContent(i, suffix);
     }
   }
 }
 
-function renderCardContent(i) {
-  formattedCardPrice(i);
-  formattedSubTotal(i);
-  quantityRender(i);
-  quantityNameRender(i);
+function renderCardContent(i, suffix) {
+  formattedCardPrice(i, suffix);
+  formattedSubTotal(suffix);
+  quantityRender(i, suffix);
+  quantityNameRender(i, suffix);
+  if (suffix === "_respo") renderCartBadge();
 }
 
-function formattedCardPrice(i) {
-  const priceRef = document.getElementById(`price${i}`);
-  priceRef.innerHTML = "";
+function formattedCardPrice(i, suffix) {
+  const priceRef = document.getElementById(`price${suffix}${i}`);
   const cardPrice = basket[i].price * basket[i].quantity;
-  const formattedPrice = cardPrice.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-  priceRef.innerHTML += formattedPrice;
+  priceRef.innerHTML = formatCurrency(cardPrice);
 }
 
-function formattedSubTotal(i) {
-  let subTotalRef = document.getElementById("subtotal");
-  let totalPriceRef = document.getElementById("total");
-  let checkoutTotal = document.getElementById("checkout_btn");
-  let total = 0;
+function formattedSubTotal(suffix) {
+  const subTotalRef = document.getElementById(`subtotal${suffix}`);
+  const totalPriceRef = document.getElementById(`total${suffix}`);
+  const checkoutTotalRef = document.getElementById(`checkout_btn${suffix}`);
+
   let subTotal = 0;
-  for (i = 0; i < basket.length; i++)
+  for (let i = 0; i < basket.length; i++)
     subTotal += basket[i].price * basket[i].quantity;
-  let formattedSubTotal = subTotal.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-  subTotalRef.innerHTML = formattedSubTotal;
-  total += subTotal + 4.99;
-  let formattedTotal = total.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
+
+  subTotalRef.innerHTML = formatCurrency(subTotal);
+
+  const total = subTotal + 4.99;
+  const formattedTotal = formatCurrency(total);
   totalPriceRef.innerHTML = formattedTotal;
-  checkoutTotal.innerHTML = checkoutButtonTemplate(formattedTotal);
+  checkoutTotalRef.innerHTML = checkoutButtonTemplate(formattedTotal);
 }
 
-function quantityNameRender(i) {
-  const nameRef = document.getElementById(`quantity${i}`);
-  nameRef.innerHTML = "";
+function quantityNameRender(i, suffix) {
+  const nameRef = document.getElementById(`quantity${suffix}${i}`);
   nameRef.innerHTML = quantityNameTemplate(i);
 }
 
-function quantityRender(i) {
-  const quantRef = document.getElementById(`quantity_count${i}`);
-  const deleteRef = document.getElementById(`delete${i}`);
-  quantRef.innerHTML = "";
-  quantRef.innerHTML = renderQuantityCount(i);
+function quantityRender(i, suffix) {
+  const quantRef = document.getElementById(`quantity_count${suffix}${i}`);
+  const deleteRef = document.getElementById(`delete${suffix}${i}`);
+  quantRef.innerHTML = renderQuantityCount(i, suffix);
   if (basket[i].quantity > 1) {
-    document.getElementById(`img2${i}`).src = "./assets/icons/+.png";
-    document.getElementById(`img${i}`).src = "./assets/icons/-.png";
+    document.getElementById(`img2${suffix}${i}`).src = "./assets/icons/+.png";
+    document.getElementById(`img${suffix}${i}`).src = "./assets/icons/-.png";
     deleteRef.classList.remove("d_none");
   } else {
-    document.getElementById(`img2${i}`).src = "./assets/icons/+.png";
-    document.getElementById(`img${i}`).src = "./assets/icons/delete.png";
+    document.getElementById(`img2${suffix}${i}`).src = "./assets/icons/+.png";
+    document.getElementById(`img${suffix}${i}`).src = "./assets/icons/delete.png";
     deleteRef.classList.add("d_none");
   }
 }
 
-function raiseQuantity(i) {
+function raiseQuantity(i, suffix) {
   const item = basket.find((product) => product.name === basket[i].name);
-  const deleteRef = document.getElementById("delete");
   if (item) {
     item.quantity++;
-    renderCardContent(i);
+    updateAddButton(item.name, item.quantity);
+    renderCardContent(i, suffix);
   }
 }
 
-function lowerQuantity(i) {
+function lowerQuantity(i, suffix) {
   const item = basket.find((product) => product.name === basket[i].name);
 
   if (item.quantity > 1) {
     item.quantity--;
-    renderCardContent(i);
-
-    renderBasketContent();
-  } else if ((item.quantity = 1)) {
+    updateAddButton(item.name, item.quantity);
+    renderCardContent(i, suffix);
+    renderBasketContent(suffix);
+  } else {
+    updateAddButton(item.name, 0);
     basket.splice(i, 1);
-
-    renderBasketContent();
+    renderBasketContent(suffix);
   }
 }
 
-function deleteItem(i) {
-  const item = basket.find((product) => product.name === basket[i].name);
+function deleteItem(i, suffix) {
+  updateAddButton(basket[i].name, 0);
   basket.splice(i, 1);
-  renderBasketContent();
+  renderBasketContent(suffix);
 }
 
 function sendConfirmation() {
@@ -251,134 +213,15 @@ function closeConfirmation() {
   const dialRef = document.getElementById("confirmation");
   const basketRef = document.getElementById("main_basket");
   basketRef.classList.remove("d_none");
-  basket.splice(length);
-  renderBasketContent();
-  renderResponsiveBasketContent();
+  basket.forEach((item) => updateAddButton(item.name, 0));
+  basket.splice(0, basket.length);
+  renderBasketContent("");
+  renderBasketContent("_respo");
   dialRef.close();
 }
 
 function bubbleProtection(event) {
   event.stopPropagation();
-}
-
-function renderResponsiveBasket() {
-  let basketRef = document.getElementById("respo_basket");
-  basketRef.classList.toggle("d_none");
-  basketRef.innerHTML = getRespoBasketTemplate();
-  renderResponsiveBasketContent();
-}
-
-function renderResponsiveBasketContent() {
-  const respoBasketRef = document.getElementById("respo_basket_content");
-  const respoErrRef = document.getElementById("empty_respo_basket");
-  const respoCheckoutRef = document.getElementById("checkout_respo");
-  respoBasketRef.innerHTML = "";
-  respoErrRef.innerHTML = "";
-  respoCheckoutRef.innerHTML = "";
-  if (basket.length === 0) {
-    respoErrRef.innerHTML = getErrorTemplate();
-    renderCartBadge();
-  } else {
-    for (let i = 0; i < basket.length; i++) {
-      respoBasketRef.innerHTML += respoBasketContentCard(i);
-      respoCheckoutRef.innerHTML = getRespoCheckoutTemplate(i);
-      renderRespoCardContent(i);
-      
-    }
-  }
-}
-
-function renderRespoCardContent(i) {
-  formattedCardPriceRespo(i);
-  formattedSubTotalRespo(i);
-  quantityRespoRender(i);
-  quantityRespoNameRender(i);
-  renderCartBadge(i);
-}
-
-function formattedCardPriceRespo(i) {
-  const priceRespoRef = document.getElementById(`price_respo${i}`);
-  priceRespoRef.innerHTML = "";
-  const cardPrice = basket[i].price * basket[i].quantity;
-  const formattedPrice = cardPrice.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-  priceRespoRef.innerHTML += formattedPrice;
-}
-
-function formattedSubTotalRespo(i) {
-  let subTotalRef = document.getElementById("subtotal_respo");
-  let totalPriceRef = document.getElementById("total_respo");
-  let checkoutTotal = document.getElementById("checkout_btn_respo");
-  let total = 0;
-  let subTotal = 0;
-  for (i = 0; i < basket.length; i++)
-    subTotal += basket[i].price * basket[i].quantity;
-  let formattedSubTotal = subTotal.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-  subTotalRef.innerHTML = formattedSubTotal;
-  total += subTotal + 4.99;
-  let formattedTotal = total.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  });
-  totalPriceRef.innerHTML = formattedTotal;
-  checkoutTotal.innerHTML = checkoutButtonTemplate(formattedTotal);
-}
-
-function quantityRespoNameRender(i) {
-  const nameRef = document.getElementById(`quantity_respo${i}`);
-  nameRef.innerHTML = "";
-  nameRef.innerHTML = quantityNameTemplate(i);
-}
-
-function quantityRespoRender(i) {
-  const quantRef = document.getElementById(`quantity_count_respo${i}`);
-  const deleteRef = document.getElementById(`delete_respo${i}`);
-  quantRef.innerHTML = "";
-  quantRef.innerHTML = renderRespoQuantityCount(i);
-  if (basket[i].quantity > 1) {
-    document.getElementById(`img2_respo${i}`).src = "./assets/icons/+.png";
-    document.getElementById(`img_respo${i}`).src = "./assets/icons/-.png";
-    deleteRef.classList.remove("d_none");
-  } else {
-    document.getElementById(`img2_respo${i}`).src = "./assets/icons/+.png";
-    document.getElementById(`img_respo${i}`).src = "./assets/icons/delete.png";
-    deleteRef.classList.add("d_none");
-  }
-}
-
-function raiseRespoQuantity(i) {
-  const item = basket.find((product) => product.name === basket[i].name);
-  const deleteRef = document.getElementById("delete_respo");
-  if (item) {
-    item.quantity++;
-    renderRespoCardContent(i);
-  }
-}
-
-function lowerRespoQuantity(i) {
-  const item = basket.find((product) => product.name === basket[i].name);
-
-  if (item.quantity > 1) {
-    item.quantity--;
-    renderRespoCardContent(i);
-
-    renderResponsiveBasketContent();
-  } else if ((item.quantity = 1)) {
-    basket.splice(i, 1);
-
-    renderResponsiveBasketContent();
-  }
-}
-
-function deleteRespoItem(i) {
-  const item = basket.find((product) => product.name === basket[i].name);
-  basket.splice(i, 1);
-  renderResponsiveBasketContent();
 }
 
 function closeBasket() {
@@ -388,14 +231,9 @@ function closeBasket() {
 
 function renderCartBadge() {
   const cartCount = document.getElementById("cart-counter");
-  const counter = basket.length;
   let totalQuantity = 0;
-  if (counter === 0) {
-    cartCount.innerHTML = "0";
-  } else {
-    for (let i = 0; i < basket.length; i++) {
-      totalQuantity += basket[i].quantity;
-      cartCount.innerHTML = totalQuantity;
-    }
+  for (let i = 0; i < basket.length; i++) {
+    totalQuantity += basket[i].quantity;
   }
+  cartCount.innerHTML = totalQuantity;
 }
